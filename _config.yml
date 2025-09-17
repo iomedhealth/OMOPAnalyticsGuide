@@ -8,9 +8,23 @@ logo: "/assets/images/logo.png"
 url: https://iomedhealth.github.io/
 
 aux_links:
-  Template Repository: https://github.com/just-the-docs/just-the-docs-template
+  Main Site: https://iomed.health
 
 mermaid:
   # Version of mermaid library
   # Pick an available version from https://cdn.jsdelivr.net/npm/mermaid/
   version: "9.1.3"
+
+collections:
+  getting_started:
+    output: true
+  core_workflow:
+    output: true
+  package_reference:
+    output: true
+  educational_materials:
+    output: true
+  development_and_deployment:
+    output: true
+  data_and_methodology:
+    output: true
