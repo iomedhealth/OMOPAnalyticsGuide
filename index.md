@@ -3,33 +3,82 @@ title: Home
 layout: home
 ---
 
-This is a *bare-minimum* template to create a Jekyll site that uses the [Just the Docs] theme. You can easily set the created site to be published on [GitHub Pages] – the [README] file explains how to do that, along with other details.
+# OMOP Analytics Workflow Documentation
 
-If [Jekyll] is installed on your computer, you can also build and preview the created site *locally*. This lets you test changes before committing them, and avoids waiting for GitHub Pages.[^1] And you will be able to deploy your local build to a different platform than GitHub Pages.
+A comprehensive documentation site introducing the analytics workflow for the
+Observational Medical Outcomes Partnership (OMOP) Common Data Model
 
-More specifically, the created site:
+## Overview
 
-- uses a gem-based approach, i.e. uses a `Gemfile` and loads the `just-the-docs` gem
-- uses the [GitHub Pages / Actions workflow] to build and publish the site on GitHub Pages
+This repository contains educational materials and documentation for conducting
+real-world evidence studies using the OMOP CDM format. The site introduces a
+complete analytics ecosystem of R packages designed for observational health
+data analysis.
 
-Other than that, you're free to customize sites that you create with this template, however you like. You can easily change the versions of `just-the-docs` and Jekyll it uses, as well as adding further plugins.
+## Core Analytics Workflow
 
-[Browse our documentation][Just the Docs] to learn more about how to use this theme.
+The OMOP analytics workflow follows a standardized pipeline for real-world
+evidence studies. The workflow transforms raw OMOP CDM data into validated
+research results through standardized phases that build upon each other.
 
-To get started with creating a site, simply:
+### Foundation Packages
+- **CDMConnector**: Database connectivity and CDM object management
+- **OmopSketch**: Database characterization and profiling
+- **CodelistGenerator**: Medical concept definition and code mapping
 
-1. click "[use this template]" to create a GitHub repository
-2. go to Settings > Pages > Build and deployment > Source, and select GitHub Actions
+### Cohort Management
+- **CohortConstructor**: Patient population definition and inclusion criteria
+- **PhenotypeR**: Cohort validation and diagnostic assessment
+- **CohortCharacteristics**: Population characterization and baseline analysis
 
-If you want to maintain your docs in the `docs` directory of an existing project repo, see [Hosting your docs from an existing project repo](https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md#hosting-your-docs-from-an-existing-project-repo) in the template README.
+### Specialized Analytics
+- **DrugUtilisation**: Drug utilization studies and medication patterns
+- **IncidencePrevalence**: Epidemiological rate estimation
+- **CohortSurvival**: Time-to-event and survival analysis
 
-----
+This diagram represents the five-phase pipeline used in for Real World Evidence
+Generation with the R package ecosystem for conducting studies with OMOP Common
+Data Model databases
 
-[^1]: [It can take up to 10 minutes for changes to your site to publish after you push the changes to GitHub](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/creating-a-github-pages-site-with-jekyll#creating-your-site).
+```mermaid
+flowchart TD
+    subgraph "Phase 1: Data Connection & Exploration"
+        A["OMOP CDM Database"] --> B["cdmFromCon()"]
+        B --> C["summariseOmopSnapshot()"]
+        C --> D["summariseClinicalRecords()"]
+    end
 
-[Just the Docs]: https://just-the-docs.github.io/just-the-docs/
-[GitHub Pages]: https://docs.github.com/en/pages
-[README]: https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md
-[Jekyll]: https://jekyllrb.com
-[GitHub Pages / Actions workflow]: https://github.blog/changelog/2022-07-27-github-pages-custom-github-actions-workflows-beta/
-[use this template]: https://github.com/just-the-docs/just-the-docs-template/generate
+    subgraph "Phase 2: Concept & Population Definition"
+        D --> E["getDrugIngredientCodes()"]
+        D --> F["getCandidateCodes()"]
+        E --> G["conceptCohort()"]
+        F --> G
+        G --> H["phenotypeR validation"]
+    end
+
+    subgraph "Phase 3: Population Analysis"
+        H --> I["summariseCharacteristics()"]
+        I --> J["summariseCohortAttrition()"]
+    end
+
+    subgraph "Phase 4: Specialized Studies"
+        J --> K["summariseIncidencePrevalence()"]
+        J --> L["summariseDrugUtilisation()"]
+        J --> M["summariseSurvival()"]
+    end
+
+    subgraph "Phase 5: Results & Validation"
+        K --> N["summarised_result objects"]
+        L --> N
+        M --> N
+        N --> O["tableCharacteristics()"]
+        N --> P["plotCharacteristics()"]
+    end
+
+    style B fill:#e1f5fe
+    style G fill:#e8f5e8
+    style I fill:#f3e5f5
+    style N fill:#fff3e0
+```
+
+
