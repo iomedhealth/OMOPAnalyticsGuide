@@ -12,6 +12,9 @@ materials, interactive presentations, practical exercises, and a suite of
 specialized R packages designed for epidemiological research and healthcare
 data analysis.
 
+For a detailed overview of the platform, see the [Overview](docs/overview.md) document.
+
+
 The repository encompasses both the educational content delivery system and the
 underlying analytics infrastructure, providing a hands-on experience in
 conducting descriptive analyses, building patient cohorts, and performing
