@@ -8,7 +8,7 @@ nav_order: 1
 
 This document provides step-by-step instructions for setting up and configuring the IOMED Data Space Platform development environment. It covers the installation of required software, project configuration, and initial usage of the R package ecosystem for OMOP CDM analysis.
 
-For information about specific analytical workflows, see [Core Analytics Workflow](../core_workflow). For detailed package documentation, see [R Package Reference](../package_reference). For educational materials and presentations, see [Educational Materials](../educational_materials).
+For information about specific analytical workflows, see [Core Analytics Workflow](../../docs/core_workflow). For detailed package documentation, see [R Package Reference](../../docs/package_reference). For educational materials and presentations, see [Educational Materials](../../docs/educational_materials).
 
 ## Prerequisites and Installation Requirements
 

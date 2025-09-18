@@ -9,7 +9,7 @@ has_children: true
 
 This document provides comprehensive reference documentation for the R package ecosystem used in the IOMED Data Space Platform. The ecosystem consists of interrelated packages designed for analyzing OMOP Common Data Model (CDM) databases, from initial database connection through specialized epidemiological analyses.
 
-For information about the educational materials and practical exercises, see [Educational Materials](../educational_materials). For technical deployment and development setup, see [Development and Deployment](../development_and_deployment).
+For information about the educational materials and practical exercises, see [Educational Materials](../../docs/educational_materials). For technical deployment and development setup, see [Development and Deployment](../../docs/development_and_deployment).
 
 ## Package Ecosystem Overview
 
