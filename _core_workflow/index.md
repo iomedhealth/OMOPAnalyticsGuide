@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Core Analytics Workflow
+nav_order: 2
 ---
 
 # Core Analytics Workflow

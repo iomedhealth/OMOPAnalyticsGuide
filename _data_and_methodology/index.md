@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Data and Methodology
+nav_order: 6
 ---
 
 # Data and Methodology

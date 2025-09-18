@@ -1,6 +1,8 @@
 ---
 layout: page
 title: omock
+parent: R Package Reference
+nav_order: 3
 ---
 
 # omock

@@ -1,6 +1,8 @@
 ---
 layout: page
 title: OmopSketch
+parent: R Package Reference
+nav_order: 6
 ---
 
 # OmopSketch

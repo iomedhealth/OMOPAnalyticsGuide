@@ -1,6 +1,8 @@
 ---
 layout: page
 title: CDMConnector
+parent: R Package Reference
+nav_order: 2
 ---
 
 # CDMConnector

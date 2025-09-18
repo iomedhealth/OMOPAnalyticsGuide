@@ -1,6 +1,8 @@
 ---
 layout: page
 title: omopgenerics
+parent: R Package Reference
+nav_order: 1
 ---
 
 # omopgenerics

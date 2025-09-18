@@ -1,6 +1,8 @@
 ---
 layout: page
 title: CohortConstructor
+parent: R Package Reference
+nav_order: 4
 ---
 
 # CohortConstructor

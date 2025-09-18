@@ -1,6 +1,8 @@
 ---
 layout: page
 title: PhenotypeR
+parent: R Package Reference
+nav_order: 11
 ---
 
 # PhenotypeR

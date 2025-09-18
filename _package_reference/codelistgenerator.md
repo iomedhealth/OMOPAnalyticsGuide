@@ -1,6 +1,8 @@
 ---
 layout: page
 title: CodelistGenerator
+parent: R Package Reference
+nav_order: 7
 ---
 
 # CodelistGenerator

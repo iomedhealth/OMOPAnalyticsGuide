@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Educational Materials
+nav_order: 4
 ---
 
 # Educational Materials

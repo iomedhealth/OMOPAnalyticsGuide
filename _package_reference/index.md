@@ -1,6 +1,7 @@
 ---
 layout: page
 title: R Package Reference
+nav_order: 3
 ---
 
 # R Package Reference

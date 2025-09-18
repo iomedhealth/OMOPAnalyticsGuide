@@ -1,6 +1,8 @@
 ---
 layout: page
 title: CohortSurvival
+parent: R Package Reference
+nav_order: 9
 ---
 
 # CohortSurvival
