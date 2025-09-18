@@ -1,37 +1,13 @@
-title: IOMED Data Space Platform
-description: IOMED Data Space Platform documentation
-theme: just-the-docs
-color_scheme: custom
-
-logo: "/assets/images/logo.png"
-favicon_ico: "/assets/images/favicon.ico"
-
-url: https://iomedhealth.github.io/
-
-aux_links:
-  Main Site: https://iomed.health
-
-mermaid:
-  # Version of mermaid library
-  # Pick an available version from https://cdn.jsdelivr.net/npm/mermaid/
-  version: "9.1.3"
-
 collections:
   getting_started:
     output: true
-    nav_enabled: true
   core_workflow:
     output: true
-    nav_enabled: true
   package_reference:
     output: true
-    nav_enabled: true
   educational_materials:
     output: true
-    nav_enabled: true
   development_and_deployment:
     output: true
-    nav_enabled: true
   data_and_methodology:
     output: true
-    nav_enabled: true

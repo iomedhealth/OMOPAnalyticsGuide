@@ -2,6 +2,7 @@
 layout: page
 title: R Package Reference
 nav_order: 3
+has_children: true
 ---
 
 # R Package Reference
