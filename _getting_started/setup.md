@@ -30,7 +30,7 @@ After installing the required software, configure the RStudio project using the 
 
 The repository includes a preconfigured RStudio project file with standardized settings. To open the project correctly:
 
-1.  Double-click the `RealWorldEvidenceSummerSchool2025.Rproj` file
+1.  Double-click the `.Rproj` file
 2.  Verify the project name appears in the RStudio title bar
 3.  Confirm the Files pane shows the repository structure
 
