@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: CohortConstructor
 parent: R Package Reference
 nav_order: 4

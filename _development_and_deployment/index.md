@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: Development and Deployment
 nav_order: 5
 ---

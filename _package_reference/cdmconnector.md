@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: CDMConnector
 parent: R Package Reference
 nav_order: 2

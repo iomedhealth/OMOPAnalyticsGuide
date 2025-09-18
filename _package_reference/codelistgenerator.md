@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: CodelistGenerator
 parent: R Package Reference
 nav_order: 7

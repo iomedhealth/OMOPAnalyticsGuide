@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: CohortSurvival
 parent: R Package Reference
 nav_order: 9

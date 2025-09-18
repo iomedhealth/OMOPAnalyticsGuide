@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: Data and Methodology
 nav_order: 6
 ---

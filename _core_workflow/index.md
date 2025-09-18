@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: Core Analytics Workflow
 nav_order: 2
 ---

@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: Educational Materials
 nav_order: 4
 ---

@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: R Package Reference
 nav_order: 3
 has_children: true
