@@ -1,2 +1,18 @@
-$link-color: $blue-000;
+// IOMED Colors
+$accent--bright-green: #11f17f;
+$accent--purple: #9b6eff;
+$basic--black: #000;
+$basic--blue-gray: #ecefff;
+$basic--gray: #ccc;
+$basic--white: white;
+$black--black-700: #434343;
+$blue--blue-100: #cfd8ff;
+$blue--blue-200: #9fb1ff;
+$blue--blue-300: #6f89fe;
+$blue--blue-400: #3f62fe;
+$blue--blue-500: #0f3bfe;
 
+
+// Customization
+$link-color: $blue--blue-500;
+$sidebar-color: $basic--white !default;
