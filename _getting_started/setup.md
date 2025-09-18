@@ -76,7 +76,7 @@ After completing the installation and configuration steps, verify the environmen
 
 ### Verification Steps
 
-The repository includes a verification script at `Analytics track/00_Setup/CodeToRun.R` that tests the complete setup. Successfully running this script confirms the environment is ready for course activities.
+
 
 **Common Verification Checkpoints:**
 
