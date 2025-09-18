@@ -1,5 +1,7 @@
 ---
 layout: home
+title: Home
+nav_order: 0
 ---
 
 # Health Data Space Platform
@@ -56,10 +58,7 @@ data of interest, and verifying data quality. Advanced Artificial Intelligence
 Automated Terminology Mapping (ATM), enhance the completeness of
 extracted information.
 
-This documentation page serves as a comprehensive educational site for the Data
-Mediation process and the Data Analysis. This includes a comprehensive
-introduction and tutorial to the  R package ecosystem for executing real-world
-evidence studies using the OMOP Common Data Model (CDM).
+This documentation page serves as a comprehensive educational site for the Data Mediation process and the Data Analysis. This includes a comprehensive introduction and tutorial to the R package ecosystem for executing real-world evidence studies using the OMOP Common Data Model (CDM).
 
 
 ```mermaid

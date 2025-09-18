@@ -1,6 +1,7 @@
 ---
 layout: default
 title: R Package Reference
+parent: Data Analysis
 nav_order: 3
 has_children: true
 ---

@@ -1,7 +1,8 @@
 ---
 layout: default
-title: Core Analytics Workflow
+title: Analytics Workflow
 nav_order: 2
+parent: Data Analysis
 ---
 
 # Core Analytics Workflow

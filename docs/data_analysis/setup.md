@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Setup
+parent: Data Analysis
 nav_order: 1
 ---
 
