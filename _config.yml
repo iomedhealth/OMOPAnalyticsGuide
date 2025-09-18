@@ -19,13 +19,19 @@ mermaid:
 collections:
   getting_started:
     output: true
+    nav_enabled: true
   core_workflow:
     output: true
+    nav_enabled: true
   package_reference:
     output: true
+    nav_enabled: true
   educational_materials:
     output: true
+    nav_enabled: true
   development_and_deployment:
     output: true
+    nav_enabled: true
   data_and_methodology:
     output: true
+    nav_enabled: true
