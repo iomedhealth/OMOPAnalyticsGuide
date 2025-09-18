@@ -18,7 +18,7 @@ mermaid:
 
 collections:
   getting_started:
-    name: true
+    output: true
   core_workflow:
     output: true
   package_reference:
