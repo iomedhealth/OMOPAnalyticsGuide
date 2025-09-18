@@ -6,13 +6,13 @@ nav_order: 1
 
 # Getting Started
 
-This document provides step-by-step instructions for setting up and configuring the IOMED Real World Evidence Summer School 2025 development environment. It covers the installation of required software, project configuration, and initial usage of the R package ecosystem for OMOP CDM analysis.
+This document provides step-by-step instructions for setting up and configuring the IOMED Data Space Platform development environment. It covers the installation of required software, project configuration, and initial usage of the R package ecosystem for OMOP CDM analysis.
 
 For information about specific analytical workflows, see [Core Analytics Workflow](../core_workflow). For detailed package documentation, see [R Package Reference](../package_reference). For educational materials and presentations, see [Educational Materials](../educational_materials).
 
 ## Prerequisites and Installation Requirements
 
-The IOMED Real World Evidence Summer School 2025 requires a specific development environment with R, RStudio, and supporting tools. The following software components must be installed in the correct order.
+The IOMED Data Space Platform requires a specific development environment with R, RStudio, and supporting tools. The following software components must be installed in the correct order.
 
 ### Required Software Components
 
@@ -55,7 +55,7 @@ The course uses the Eunomia synthetic dataset for practical exercises. This mock
 
 ## Course Program Structure
 
-The Summer School follows a structured five-day program, with each day focusing on specific packages and analytical concepts.
+The IOMED Data Space Platform follows a structured five-day program, with each day focusing on specific packages and analytical concepts.
 
 ### Daily Package Focus
 

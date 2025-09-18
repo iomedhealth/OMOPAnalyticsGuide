@@ -8,7 +8,7 @@ nav_order: 2
 
 ## Purpose and Scope
 
-This document explains the standard analytical pipeline used in the IOMED Real World Evidence Summer School 2025 R package ecosystem for conducting studies with OMOP Common Data Model (CDM) databases. The workflow covers the complete process from initial database connection through cohort construction to specialized epidemiological analyses.
+This document explains the standard analytical pipeline used in the IOMED Data Space Platform R package ecosystem for conducting studies with OMOP Common Data Model (CDM) databases. The workflow covers the complete process from initial database connection through cohort construction to specialized epidemiological analyses.
 
 For information about individual R packages, see [R Package Reference](../package_reference). For educational materials and presentations, see [Educational Materials](../educational_materials). For technical setup and deployment details, see [Development and Deployment](../development_and_deployment).
 

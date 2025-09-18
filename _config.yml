@@ -1,9 +1,10 @@
-title: Just the Docs Template
-description: A starter template for a Jeykll site using the Just the Docs theme!
+title: IOMED Data Space Platform
+description: IOMED Data Space Platform documentation
 theme: just-the-docs
 color_scheme: custom
 
 logo: "/assets/images/logo.png"
+favicon_ico: "/assets/images/favicon.ico"
 
 url: https://iomedhealth.github.io/
 
