@@ -8,43 +8,43 @@ nav_order: 3
 # PatientProfiles
 {: .no_toc}
 
-PatientProfiles is an R package designed to identify and add patient
-characteristics to OMOP Common Data Model (CDM) tables. It enables researchers
-to perform complex data intersections for patient profiling and cohort
-analysis, making it a powerful tool for observational health research.
+PatientProfiles is an R package designed to help you characterize and analyze patient cohorts within the OMOP Common Data Model (CDM). The main purpose of the package is to facilitate an iterative workflow where you can easily add new data points of interest to a cohort table and then summarize or plot the results. This allows you to progressively build a detailed profile of a patient group, analyze the findings, and use those insights to refine your cohort or investigate new characteristics.
 
 1. TOC
 {:toc}
-
-
-- **Demographics**: Add patient age, sex, and observation period details.
-- **Temporal Intersections**: Analyze relationships between different data sources over time.
-- **Data Summarization**: Summarize patient characteristics for analysis.
-- **Mock Data Generation**: Create test environments with synthetic data.
 
 
 The package follows a layered architecture with core processing engines,
 specialized function modules, and external integrations.
 
 ```mermaid
-graph TB
-
-
-    subgraph "Core_Processing"
-        add_intersect[".addIntersect"]
-        validation["Input Validation"]
+graph TD
+    subgraph "Start"
+        A[Start with a cohort]
     end
 
-    subgraph "Specialized_Modules"
-        cohort_intersect["addCohortIntersect*"]
-        concept_intersect["addConceptIntersect*"]
-        table_intersect["addTableIntersect*"]
+    subgraph "Iteration"
+        B[Find a datapoint of interest]
+        C[Add it to the cohort table]
+        D[Summarise/Plot the results]
+        E[Analyze the findings]
     end
 
-    add_intersect --> cohort_intersect
-    add_intersect --> concept_intersect
-    add_intersect --> table_intersect
-    validation --> add_intersect
+    subgraph "Decision"
+        F{Refine cohort or investigate new characteristics?}
+    end
+
+    subgraph "End"
+        G[End analysis]
+    end
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    F -- Yes --> B
+    F -- No --> G
 ```
 
 ## Installation
@@ -247,7 +247,69 @@ cdm$cohort1 <- cdm$cohort1 %>%
 glimpse(cdm$cohort1)
 ```
 
-### Summarize Characteristics
+### Putting it all together: an iterative example
+{: .no_toc}
+
+This example demonstrates the iterative workflow of PatientProfiles. We start with a cohort, add some characteristics, summarize the results, and then use those results to ask a new question and iterate.
+
+#### 1. Start with a cohort and add demographics
+{: .no_toc}
+
+First, we start with our cohort of interest and add some basic demographic information.
+
+```r
+cdm$cohort1 <- cdm$cohort1 %>%
+  addDemographics(
+    indexDate = "cohort_start_date",
+    ageGroup = list(c(0, 18), c(19, 65), c(66, 100))
+  )
+```
+
+#### 2. Add cohort intersection information and summarize
+{: .no_toc}
+
+Now, let's see how many of these patients are in `cohort2` and summarize the results.
+
+```r
+cdm$cohort1 <- cdm$cohort1 %>%
+  addCohortIntersectCount(
+    targetCohortTable = "cohort2",
+    window = list(c(-365, 365))
+  )
+
+cdm$cohort1 %>%
+  summariseResult()
+```
+
+#### 3. Analyze the findings and ask a new question
+{: .no_toc}
+
+Let's say the summary shows that a significant number of patients in `cohort1` are also in `cohort2`. This might lead us to ask: "What is the time difference between the `cohort1` start date and the `cohort2` start date?"
+
+#### 4. Iterate and refine the analysis
+{: .no_toc}
+
+We can now add this new information to our table and re-summarize.
+
+```r
+cdm$cohort1 <- cdm$cohort1 %>%
+  addCohortIntersectDate(
+    targetCohortTable = "cohort2",
+    window = list(c(-365, 365)),
+    nameStyle = "date_of_cohort2"
+  ) %>%
+  addCohortIntersectDays(
+    targetCohortTable = "cohort2",
+    window = list(c(-365, 365)),
+    nameStyle = "days_to_cohort2"
+  )
+
+cdm$cohort1 %>%
+  summariseResult()
+```
+
+This iterative process of adding new characteristics and summarizing the results allows you to progressively build a detailed profile of your patient cohort and refine your research questions as you go.
+
 
 Generate a statistical summary of patient characteristics.
 
