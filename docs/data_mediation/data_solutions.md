@@ -75,7 +75,7 @@ statistical modeling, and evidence generation. The hospital retains full
 control, approving the request before any data is exported.
 
 * **What it Delivers:** A rich, longitudinal, anonymized dataset of individual
-  patient longitudinal data.
+  patients.
 * **Example:** A research institution is developing a predictive model to
   identify patients at high risk of developing kidney complications from
   diabetes. They request a patient-level dataset of diabetic patients,

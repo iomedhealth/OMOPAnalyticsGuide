@@ -32,9 +32,13 @@ Physicians perform rSDV on a significant sample of the data. They are presented 
 
 Each annotation is cross-verified by at least two physicians to ensure consistency.
 
+![Remote Source Data Verification (rSDV)](/assets/images/rsdv.png)
+
 ### False Negative (FN) Detection
 
 False negatives—relevant clinical information that the AI missed—are difficult to find by random sampling. To address this, we use a semantic similarity search internally develelped by us[^1]. The system identifies data points that have been correctly identified and then searches the entire dataset for similar, but previously unrecognized, instances. These potential false negatives are then sent for rSDV to confirm if they are true missed cases.
+
+![Remote Source Data Verification (rSDV)](/assets/images/fn.png)
 
 ### Performance Metrics
 
@@ -43,6 +47,8 @@ We measure the effectiveness of our AI models using standard performance metrics
 *   **Precision:** The proportion of AI-generated data that is correct.
 *   **Recall:** The proportion of all relevant data that the AI successfully extracted.
 *   **F1-Score:** The harmonic mean of Precision and Recall, providing a single measure of a model's accuracy.
+
+![Verification metrics](/assets/images/verification.png)
 
 ### Annotator Evaluation: Monitoring Our Experts
 
@@ -63,6 +69,8 @@ The key dimensions we assess are:
 *   **Plausibility:** We check that the data is believable and logically consistent (e.g., no negative ages, logical event timelines).
 
 In addition to these systematic checks, our clinical team performs a qualitative evaluation to ensure the final dataset is coherent and valid from a medical perspective.
+
+![Validation](/assets/images/validation.png)
 
 ---
 
