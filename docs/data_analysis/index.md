@@ -98,7 +98,7 @@ that form the basis of any study.
 | Library | Purpose |
 | :--- | :--- |
 | **`CodelistGenerator`** | Creates codelists (sets of medical codes) from OMOP concept sets. |
-| **`CohortConstructor`** | Builds patient cohorts from codelists and other criteria, such as temporal windows or intersections with other cohorts. |
+| [**`CohortConstructor`**](./package_reference/cohortconstructor.md) | Builds patient cohorts from codelists and other criteria, such as temporal windows or intersections with other cohorts. |
 
 ### Analysis Layer
 This layer contains packages that perform specific types of epidemiological or
