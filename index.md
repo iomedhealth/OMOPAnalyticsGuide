@@ -6,6 +6,8 @@ nav_order: 0
 
 # Health Data Space Platform
 
+## Context
+
 Clinical data generated during routine patient care is a primary source of
 real-world evidence. However, its direct use in research is impeded by three
 fundamental, widely recognized challenges:
@@ -22,6 +24,8 @@ fundamental, widely recognized challenges:
 3.  **Operational Barriers:** Preparing data for research demands significant
     technical expertise, time, and resources, which are often beyond the scope
     of individual healthcare or research institutions.
+
+## Solution
 
 IOMED provides the infrastructure and processes to bridge this gap, converting
 raw clinical data into a standardized, privacy-compliant resource for
