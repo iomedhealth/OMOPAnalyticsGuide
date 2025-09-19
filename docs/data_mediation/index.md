@@ -10,13 +10,9 @@ Executing a Data Mediation with IOMED follows a structured, multi-phase approach
 
 Following data preparation, the Data Mediation execution phase focuses on defining the research objectives, identifying relevant patient cohorts and the data of interest, and verifying data quality. Advanced Artificial Intelligence (AI) driven techniques, including Natural Language Processing (NLP) and Automated Terminology Mapping (ATM), enhance the accuracy and completeness of extracted information.
 
-## Phase 01: Data Preparation
-
-### 1. Establishing Institutional Partnerships and Ethical Compliance
+## 1. Establishing Institutional Partnerships and Ethical Compliance
 
 The initiation of a clinical research Data Mediation leveraging IOMED's infrastructure relies on the establishment of strong institutional partnerships with Data Holders. This process is not static but rather an ongoing effort to expand IOMED's federated hospital network. By continuously integrating new Data Holder, we enhance the depth and breadth of available clinical data, improving research scalability, and ensuring consistency in data harmonization across multiple healthcare systems.
-
-![](/assets/images/image10.png)
 
 Negotiating these partnerships entails formal contractual agreements that define the scope of data access, ethical obligations, and regulatory compliance at both national and international levels. Compliance with major regulatory frameworks, such as the General Data Protection Regulation (GDPR) in the European Union and the Health Insurance Portability and Accountability Act (HIPAA) in the United States, is fundamental to securing patient confidentiality and safeguarding sensitive information. These regulations require periodic compliance reviews, security assessments, and the implementation of strict data access protocols. To ensure continuous adherence, IOMED employs encryption mechanisms, real-time monitoring of data access, and stringent role-based access control. Staff undergo regular training to stay updated on evolving legal and ethical standards, reinforcing a culture of compliance across all participating Data Holders.
 

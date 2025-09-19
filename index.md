@@ -22,76 +22,92 @@ IOMED provides the infrastructure and processes to bridge this gap, converting r
 
 ### For Healthcare Institutions (Data Holders)
 
-Our platform provides hospitals and other data custodians with the tools to prepare their data for research while ensuring it never leaves their secure environment. We enable institutions to:
+Our platform provides hospitals and other data custodians with the tools to
+prepare their data for research while ensuring it never leaves their secure
+environment. We enable institutions to:
 
-*   **Standardize Clinical Data:** We process and map disparate data from electronic health records to the OMOP Common Data Model, a global standard for observational research. This creates a uniform
-structure, allowing for consistent interpretation and analysis.
-*   **Protect Patient Privacy:** Our system applies robust anonymization techniques to remove all personally identifiable information. This process ensures the resulting dataset complies with data
-protection regulations.
-*   **Ensure Data Integrity:** We implement a multi-layered Quality Assurance framework with automated checks and expert validation to verify the accuracy, completeness, and plausibility of the data.
-*   **Maintain Control and Compliance:** The entire data preparation process is auditable and governed by clear protocols, giving institutions full oversight and ensuring regulatory adherence.
+*   **Standardize Clinical Data:** We process and map disparate data from
+    electronic health records to the OMOP Common Data Model, a global standard
+    for observational research. This creates a uniform
+    structure, allowing for consistent interpretation and analysis. Advanced
+    Artificial Intelligence (AI) driven techniques, including Natural Language
+    Processing (NLP) and Automated Terminology Mapping (ATM), enhance the
+    completeness of extracted information.
+*   **Protect Patient Privacy:** Our system applies robust anonymization
+    techniques to remove all personally identifiable information. This process
+    ensures the resulting dataset complies with data protection regulations.
+*   **Maintain Control and Compliance:** The entire data preparation process is
+    auditable and governed by clear protocols, giving institutions full
+    oversight and ensuring regulatory adherence.
 
 ### For Research Organizations (Data Users)
 
 We provide researchers with a streamlined and compliant method to access the specific data required for their work. Our platform allows them to:
 
-*   **Define and Request Datasets:** Researchers can construct precise queries to define patient cohorts and specify the exact variables needed for their study, requesting access to a dataset tailored to
-their research question.
-*   **Access Research-Ready Data:** We deliver fully anonymized, standardized, and quality-checked datasets. This allows research teams to proceed directly to analysis, confident that the data is
-reliable and has been sourced ethically and legally.
+*   **Define and Request Datasets:** Researchers can construct precise queries
+    to define patient cohorts and specify the exact variables needed for their
+    study, requesting access to a dataset tailored to
+    their research question.
+*   **Access Research-Ready Data:** We deliver fully anonymized, standardized,
+    and quality-checked datasets. This allows research teams to proceed
+    directly to analysis, confident that the data is
+    reliable and has been sourced ethically and legally.
+*   **Ensure Data Integrity:** We implement a multi-layered Quality Assurance
+    framework with automated checks and expert validation to verify the
+    accuracy, completeness, and plausibility of the data.
 
 
-## Health Data Mediation and Data Analysis
+## Health Data Mediation
 
+IOMED’s Health Data Mediation transforms raw clinical data into a standardized, research-ready resource. Our structured approach ensures data integrity, regulatory compliance, and scientific rigor. The process begins with data preparation, where we establish partnerships with data holders, secure ethical approvals, and integrate disparate data sources into a uniform format.
 
-Executing a Data Mediation with IOMED follows a structured, multi-phase
-approach designed to ensure data integrity, regulatory compliance, and
-scientific rigor. The process as a **Data User**, begins with data preparation,
-which includes establishing partnerships with **Data Holders**, securing
-ethical approvals, and integrating disparate data sources into a standardized
-format.
+Following preparation, we execute the Data Mediation, which involves defining research objectives, identifying patient cohorts, specifying the data of interest, and verifying data quality. This ensures that the final dataset is tailored to the specific research question and meets the highest standards of quality and reliability. You can find a more detailed explanation in our [Data Mediation documentation](./docs/data_mediation/index.md).
 
-Following data preparation, the Data Mediation execution phase focuses on
-defining the research objectives, defining the patient cohorts and the
-data of interest, and verifying data quality. Advanced Artificial Intelligence
-(AI) driven techniques, including Natural Language Processing (NLP) and
-Automated Terminology Mapping (ATM), enhance the completeness of
-extracted information.
+![](/assets/images/mediation.svg)
 
-This documentation page serves as a comprehensive educational site for the Data Mediation process and the Data Analysis. This includes a comprehensive introduction and tutorial to the R package ecosystem for executing real-world evidence studies using the OMOP Common Data Model (CDM).
+The key stages of this process include:
 
+*   **Mediation Request:** Researchers initiate a request by developing a
+    protocol, defining the required clinical variables (concept sets), and
+    specifying the patient population (cohort). This ensures the study is
+    scientifically valid and provides data holders with full transparency.
 
-```mermaid
-graph TB
-    subgraph "Foundation Layer"
-        A["omopgenerics"] --> B["CDMConnector"]
-        A --> C["omock"]
-    end
+*   **Mediation Approval:** Data holders review the request, secure necessary
+    approvals from ethics committees, and finalize contractual agreements
+    before granting access to the data.
 
-    subgraph "Analysis Layer"
-        B --> D["CodelistGenerator"]
-        B --> E["CohortConstructor"]
-        B --> F["OmopSketch"]
-        D --> E
-        E --> G["CohortCharacteristics"]
-        E --> H["IncidencePrevalence"]
-        E --> I["DrugUtilisation"]
-        E --> J["CohortSurvival"]
-        E --> K["PhenotypeR"]
-    end
+*   **Quality Assurance:** We perform rigorous checks to validate the data
+    against the original request. This includes automated verification and
+    validation by clinical experts to ensure the dataset is accurate, complete,
+    and clinically plausible.
 
-    subgraph "Output Layer"
-        G --> L["visOmopResults"]
-        H --> L
-        I --> L
-        J --> L
-        K --> L
-    end
-```
+*   **Compliance and Delivery:** After a final compliance check, the fully
+    anonymized and standardized dataset is securely delivered to the
+    researcher.
 
-These diagram represent the core architecture of the R package ecosystem that
-follows the standardized practices set by the European Medicines Agency (EMA)
-DARWIN EU program, showing how different packages work together in a
-standardized analytical pipeline for OMOP CDM data analysis. The workflow
-follows a five-phase approach from database connection through specialized
-epidemiological analyses to standardized result outputs.
+## Health Data Analysis
+
+The Health Data Analysis phase transforms raw clinical data into research-ready datasets for scientific investigation. This process is governed by rigorous protocols to ensure data quality, patient privacy, and regulatory compliance. You can find a more detailed explanation in our [Data Analysis documentation](./docs/data_analysis/index.md).
+
+The key stages of this process include:
+
+*   **Protocol Development:** Each study begins with a detailed protocol
+    outlining the research questions, methodology, and ethical considerations.
+    This blueprint ensures that the study is scientifically valid and compliant
+    with all regulations.
+
+*   **Mediation Request:** Researchers initiate a request by developing a
+    protocol, defining the required clinical variables (concept sets), and
+    specifying the patient population (cohort). This ensures the study is
+    scientifically valid and provides data holders with full transparency.
+
+*   **Flexible Analysis Options**: We offer two models for data analysis.
+    Researchers can receive the final, anonymized dataset, or for maximum
+    security, the analysis can be executed within the data holder's
+    infrastructure using R packages or Atlas.
+
+This documentation page serves as a comprehensive educational site for the Data
+the Data Analysis process using the OHDSI R packages. This includes a
+comprehensive introduction and tutorial to the R package ecosystem for
+executing real-world evidence studies using the OMOP Common Data Model (CDM).
+
