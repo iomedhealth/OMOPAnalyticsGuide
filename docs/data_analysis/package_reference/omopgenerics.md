@@ -1,7 +1,7 @@
 ---
 layout: default
 title: omopgenerics
-parent: R Package Reference
+parent: Package Reference
 nav_order: 1
 ---
 

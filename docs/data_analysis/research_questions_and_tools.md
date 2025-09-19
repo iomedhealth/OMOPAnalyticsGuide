@@ -76,7 +76,7 @@ Think of this as your roadmap. Once you know what you want to ask, this page wil
 
 *   **Primary Tools:**
 *   [**`CohortConstructor`**](./package_reference/cohortconstructor): The essential first step. This package allows you to build the highly specific treatment (target) and control (comparator) cohorts needed for the comparison. Its powerful temporal features are critical for defining new-user cohorts and applying washout periods.
-*   [**`CohortSurvival`**](./package_reference/cohortsurvival): The primary tool for performing time-to-event (survival) analysis after you have constructed your cohorts. It allows you to calculate adjusted Hazard Ratios to compare outcomes over time.
+*   [**`CohortSurvival`**](https://darwin-eu-dev.github.io/CohortSurvival/): The primary tool for performing time-to-event (survival) analysis after you have constructed your cohorts. It allows you to calculate adjusted Hazard Ratios to compare outcomes over time.
 
 ### B. Feature Engineering for Adjustment
 

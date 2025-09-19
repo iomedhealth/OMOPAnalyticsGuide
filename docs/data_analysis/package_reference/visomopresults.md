@@ -1,7 +1,7 @@
 ---
 layout: default
 title: visOmopResults
-parent: R Package Reference
+parent: Package Reference
 nav_order: 11
 ---
 

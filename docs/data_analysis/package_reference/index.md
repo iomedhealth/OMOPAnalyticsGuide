@@ -1,12 +1,12 @@
 ---
 layout: default
-title: R Package Reference
+title: Package Reference
 parent: Data Analysis
 nav_order: 4
 has_children: true
 ---
 
-# R Package Reference
+# Package Reference
 
 This document provides comprehensive reference documentation for the R package ecosystem used in the IOMED Data Space Platform. The ecosystem consists of interrelated packages designed for analyzing OMOP Common Data Model (CDM) databases, from initial database connection through specialized epidemiological analyses.
 

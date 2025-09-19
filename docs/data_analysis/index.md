@@ -110,7 +110,7 @@ characterization analyses on the generated cohorts.
 | [**`CohortCharacteristics`**](https://darwin-eu.github.io/CohortCharacteristics/) | Summarizes the baseline characteristics of a cohort, including demographics, comorbidities, and other features. |
 | [**`IncidencePrevalence`**](https://darwin-eu.github.io/IncidencePrevalence/) | Calculates the incidence and prevalence of health outcomes within a study population. |
 | [**`DrugUtilisation`**](https://darwin-eu.github.io/DrugUtilisation/) | Analyzes patterns of drug use, such as treatment pathways and adherence. |
-| [**`CohortSurvival`**](https://darwin-eu.github.io/CohortSurvival/) | Performs time-to-event (survival) analysis to estimate the risk of outcomes over time. |
+| [**`CohortSurvival`**](https://darwin-eu-dev.github.io/CohortSurvival/) | Performs time-to-event (survival) analysis to estimate the risk of outcomes over time. |
 | [**`PatientProfiles`**](https://darwin-eu.github.io/PatientProfiles/) | Adds detailed demographic and clinical features to patient cohorts for in-depth characterization. |
 | [**`OmopSketch`**](https://ohdsi.github.io/OmopSketch/) | Provides a quick summary or "sketch" of the data in an OMOP CDM instance. |
 

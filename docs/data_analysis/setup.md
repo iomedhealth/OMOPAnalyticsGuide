@@ -9,7 +9,7 @@ nav_order: 3
 
 This document provides step-by-step instructions for setting up and configuring the IOMED Data Space Platform development environment. It covers the installation of required software, project configuration, and initial usage of the R package ecosystem for OMOP CDM analysis.
 
-For information about specific analytical workflows, see [Core Analytics Workflow](../../docs/core_workflow). For detailed package documentation, see [R Package Reference](../../docs/package_reference). For educational materials and presentations, see [Educational Materials](../../docs/educational_materials).
+For information about specific analytical workflows, see [Core Analytics Workflow](../../docs/core_workflow). For detailed package documentation, see [Package Reference](../../docs/data_analysis/package_reference). For educational materials and presentations, see [Educational Materials](../../docs/educational_materials).
 
 
 ## Project Configuration
@@ -73,4 +73,4 @@ Once the environment is configured and verified, proceed to explore the core ana
 2.  **Concept Definition**: Create medical concept lists with [`CodelistGenerator`](https://darwin-eu.github.io/CodelistGenerator/)
 3.  **Cohort Building**: Define patient populations using [`CohortConstructor`](https://ohdsi.github.io/CohortConstructor/)
 4.  **Population Analysis**: Characterize cohorts with [`CohortCharacteristics`](https://darwin-eu.github.io/CohortCharacteristics/)
-5.  **Specialized Studies**: Conduct domain-specific analyses with [`DrugUtilisation`](https://darwin-eu.github.io/DrugUtilisation/), [`IncidencePrevalence`](https://darwin-eu.github.io/IncidencePrevalence/), or [`CohortSurvival`](https://darwin-eu.github.io/CohortSurvival/)
+5.  **Specialized Studies**: Conduct domain-specific analyses with [`DrugUtilisation`](https://darwin-eu.github.io/DrugUtilisation/), [`IncidencePrevalence`](https://darwin-eu.github.io/IncidencePrevalence/), or [`CohortSurvival`](https://darwin-eu-dev.github.io/CohortSurvival/)

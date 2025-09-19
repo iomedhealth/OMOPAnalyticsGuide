@@ -1,7 +1,7 @@
 ---
 layout: default
 title: omock
-parent: R Package Reference
+parent: Package Reference
 nav_order: 3
 ---
 

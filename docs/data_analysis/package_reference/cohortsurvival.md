@@ -1,15 +1,15 @@
 ---
 layout: default
 title: CohortSurvival
-parent: R Package Reference
+parent: Package Reference
 nav_order: 9
 ---
 
-# [CohortSurvival](https://darwin-eu.github.io/CohortSurvival/)
+# [CohortSurvival](https://darwin-eu-dev.github.io/CohortSurvival/)
 
 ## Overview
 
-This document provides a comprehensive overview of the [CohortSurvival](https://darwin-eu.github.io/CohortSurvival/) package, an R package designed for performing survival analysis on data structured according to the Observational Medical Outcomes Partnership (OMOP) Common Data Model (CDM). The package enables researchers to estimate survival probabilities, generate survival curves, and perform competing risk analyses using standardized cohort data.
+This document provides a comprehensive overview of the [CohortSurvival](https://darwin-eu-dev.github.io/CohortSurvival/) package, an R package designed for performing survival analysis on data structured according to the Observational Medical Outcomes Partnership (OMOP) Common Data Model (CDM). The package enables researchers to estimate survival probabilities, generate survival curves, and perform competing risk analyses using standardized cohort data.
 
 ## Installation
 
@@ -75,17 +75,17 @@ graph TB
         SE_CONCEPT["Single Event<br/>(e.g., death, disease progression)"] --> SE_FUNC["estimateSingleEventSurvival()"]
         SE_FUNC --> SE_METHOD["Kaplan-Meier Estimation"]
     end
-    
+
     subgraph "Competing Risk Analysis"
         CR_CONCEPT["Primary Event +<br/>Competing Events<br/>(e.g., disease-specific death<br/>vs. all-cause death)"] --> CR_FUNC["estimateCompetingRiskSurvival()"]
         CR_FUNC --> CR_METHOD["Aalen-Johansen Estimation<br/>(Cumulative Incidence)"]
     end
-    
+
     SE_METHOD --> RESULT["summarised_result object"]
     CR_METHOD --> RESULT
 ```
 
-### Competing Risk Survival Analysis  
+### Competing Risk Survival Analysis
 
 Uses the `estimateCompetingRiskSurvival()` function to perform Aalen-Johansen estimation for scenarios where multiple competing events can occur.
 
@@ -152,7 +152,7 @@ surv_stratified <- estimateSingleEventSurvival(
 result <- estimateCompetingRiskSurvival(
   cdm = cdm,
   targetCohortTable = "mgus_diagnosis",
-  outcomeCohortTable = "progression", 
+  outcomeCohortTable = "progression",
   competingOutcomeCohortTable = "death_cohort",
   targetCohortId = 1,
   outcomeCohortId = 1,

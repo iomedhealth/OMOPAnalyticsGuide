@@ -2,7 +2,7 @@
 layout: default
 title: CohortConstructor
 nav_order: 1
-parent: R Package Reference
+parent: Package Reference
 ---
 
 # [CohortConstructor](https://ohdsi.github.io/CohortConstructor/)

@@ -282,9 +282,9 @@ The steps we have walked through—defining variables, creating cohorts, and gen
 
 From here, a whole ecosystem of specialized R packages is available to perform more advanced analyses, including:
 
-*   **`IncidencePrevalence`**: To calculate how often conditions occur.
-*   **`CohortSurvival`**: To perform time-to-event (survival) analysis.
-*   **`DrugUtilisation`**: To study patterns of medication use.
+*   [**`IncidencePrevalence`**](https://darwin-eu.github.io/IncidencePrevalence/): To calculate how often conditions occur.
+*   [**`CohortSurvival`**](https://darwin-eu-dev.github.io/CohortSurvival/): To perform time-to-event (survival) analysis.
+*   [**`DrugUtilisation`**](https://darwin-eu.github.io/DrugUtilisation/): To study patterns of medication use.
 
 You now understand the complete workflow: from a clinical idea, to a standardized `concept_set`, to a study `cohort`, and finally to the tables and figures that will form the core of your research findings.
 

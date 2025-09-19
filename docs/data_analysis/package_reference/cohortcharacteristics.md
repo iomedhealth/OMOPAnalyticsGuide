@@ -1,7 +1,7 @@
 ---
 layout: default
 title: CohortCharacteristics
-parent: R Package Reference
+parent: Package Reference
 nav_order: 2
 ---
 
