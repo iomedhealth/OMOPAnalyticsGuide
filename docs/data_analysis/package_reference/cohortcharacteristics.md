@@ -5,7 +5,7 @@ parent: R Package Reference
 nav_order: 2
 ---
 
-# CohortCharacteristics
+# [CohortCharacteristics](https://darwin-eu.github.io/CohortCharacteristics/)
 {: .no_toc}
 
 1. TOC

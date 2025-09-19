@@ -5,11 +5,11 @@ parent: R Package Reference
 nav_order: 9
 ---
 
-# CohortSurvival
+# [CohortSurvival](https://darwin-eu.github.io/CohortSurvival/)
 
 ## Overview
 
-This document provides a comprehensive overview of the CohortSurvival package, an R package designed for performing survival analysis on data structured according to the Observational Medical Outcomes Partnership (OMOP) Common Data Model (CDM). The package enables researchers to estimate survival probabilities, generate survival curves, and perform competing risk analyses using standardized cohort data.
+This document provides a comprehensive overview of the [CohortSurvival](https://darwin-eu.github.io/CohortSurvival/) package, an R package designed for performing survival analysis on data structured according to the Observational Medical Outcomes Partnership (OMOP) Common Data Model (CDM). The package enables researchers to estimate survival probabilities, generate survival curves, and perform competing risk analyses using standardized cohort data.
 
 ## Installation
 
@@ -40,7 +40,7 @@ For development and testing purposes, CohortSurvival provides the `mockMGUS2cdm(
 
 ```r
 # Create mock CDM with MGUS2 survival data
-cdm <- CohortSurvival::mockMGUS2cdm()
+cdm <- [CohortSurvival](https://darwin-eu.github.io/CohortSurvival/)::mockMGUS2cdm()
 
 # Verify cohort tables are available
 names(cdm)

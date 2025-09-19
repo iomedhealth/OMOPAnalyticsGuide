@@ -5,11 +5,11 @@ parent: R Package Reference
 nav_order: 11
 ---
 
-# PhenotypeR
+# [PhenotypeR](https://ohdsi.github.io/PhenotypeR/)
 
 ## Overview
 
-PhenotypeR is a comprehensive diagnostic system for assessing the research-readiness of study cohorts defined within OMOP Common Data Model (CDM) databases. The system performs multi-level analysis across database, codelist, cohort, and population dimensions to validate phenotype definitions and ensure cohorts meet quality standards for observational health research.
+[PhenotypeR](https://ohdsi.github.io/PhenotypeR/) is a comprehensive diagnostic system for assessing the research-readiness of study cohorts defined within OMOP Common Data Model (CDM) databases. The system performs multi-level analysis across database, codelist, cohort, and population dimensions to validate phenotype definitions and ensure cohorts meet quality standards for observational health research.
 
 ### Key Features:
 - **Multi-level Assessment**: Database, codelist, cohort, and population-level diagnostics.
@@ -33,13 +33,13 @@ remotes::install_github("OHDSI/PhenotypeR")
 Here is a simple example of how to get started with PhenotypeR:
 
 ```r
-library(PhenotypeR)
-library(CDMConnector)
-library(CohortConstructor)
+library([PhenotypeR](https://ohdsi.github.io/PhenotypeR/))
+library([CDMConnector](https://darwin-eu.github.io/CDMConnector/))
+library([CohortConstructor](https://ohdsi.github.io/CohortConstructor/))
 library(dplyr)
 
 # 1. Connect to a mock CDM
-cdm <- mockPhenotypeR()
+cdm <- [mockPhenotypeR](https://ohdsi.github.io/PhenotypeR/)()
 
 # 2. Create a cohort
 cdm$my_cohort <- conceptCohort(

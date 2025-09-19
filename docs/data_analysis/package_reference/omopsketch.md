@@ -5,7 +5,7 @@ parent: R Package Reference
 nav_order: 6
 ---
 
-# OmopSketch
+# [OmopSketch](https://ohdsi.github.io/OmopSketch/)
 
 Provides comprehensive database characterization and quality assessment for OMOP CDM databases.
 

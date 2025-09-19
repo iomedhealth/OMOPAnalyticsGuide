@@ -5,7 +5,7 @@ parent: R Package Reference
 nav_order: 10
 ---
 
-# IncidencePrevalence
+# [IncidencePrevalence](https://darwin-eu.github.io/IncidencePrevalence/)
 
 ## Overview
 
@@ -14,7 +14,7 @@ The `IncidencePrevalence` R package provides a set of tools to calculate populat
 ### Key Features:
 - **Incidence Rate Calculation**: Estimates incidence rates with support for repeated events, washout periods, and censoring.
 - **Prevalence Estimation**: Calculates both point and period prevalence, with options for full contribution and complete database intervals.
-- **OMOP CDM Integration**: Seamlessly works with the OMOP CDM through integration with `CDMConnector` and `omopgenerics`.
+- **OMOP CDM Integration**: Seamlessly works with the OMOP CDM through integration with `[CDMConnector](https://darwin-eu.github.io/CDMConnector/)` and `[omopgenerics](https://darwin-eu.github.io/omopgenerics/)`.
 - **Standardized Outputs**: Produces results in the `summarised_result` format, ensuring compatibility with other OHDSI tools.
 - **Visualization**: Includes built-in functions for plotting incidence and prevalence results.
 
@@ -38,10 +38,10 @@ Here is a basic example of how to use the `IncidencePrevalence` package to calcu
 ### 1. Load Libraries and Create a Mock CDM
 First, load the necessary libraries and create a mock CDM object for demonstration purposes.
 ```r
-library(IncidencePrevalence)
-library(CDMConnector)
+library([IncidencePrevalence](https://darwin-eu.github.io/IncidencePrevalence/))
+library([CDMConnector](https://darwin-eu.github.io/CDMConnector/))
 
-cdm <- mockIncidencePrevalence()
+cdm <- [mockIncidencePrevalence](https://darwin-eu.github.io/IncidencePrevalence/)()
 ```
 
 ### 2. Generate a Denominator Cohort

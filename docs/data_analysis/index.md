@@ -25,8 +25,9 @@ regulatory bodies like the European Medicines Agency (EMA) through initiatives
 such as DARWIN EU.
 
 This guide provides a practical, step-by-step framework for executing an
-observational study using these tools. We will walk through the key phases of a
-study, using code examples to illustrate each step.
+observational study using these tools. For a conceptual overview of how to map common research questions to these packages, please see [From Research Questions to Analysis Tools](./research_questions_and_tools.md).
+
+We will walk through the key phases of a study, using code examples to illustrate each step.
 
 1. TOC
 {:toc}
@@ -87,9 +88,9 @@ provide the basic infrastructure for all other operations.
 
 | Library | Purpose |
 | :--- | :--- |
-| **`omopgenerics`** | Provides a common set of classes and methods to ensure interoperability between different OHDSI packages. |
-| **`CDMConnector`** | Establishes and manages the connection to an OMOP CDM database, creating the `cdm` object. |
-| **`omock`** | A utility for creating mock `cdm` objects for testing and development purposes. |
+| [**`omopgenerics`**](https://darwin-eu.github.io/omopgenerics/) | Provides a common set of classes and methods to ensure interoperability between different OHDSI packages. |
+| [**`CDMConnector`**](https://darwin-eu.github.io/CDMConnector/) | Establishes and manages the connection to an OMOP CDM database, creating the `cdm` object. |
+| [**`omock`**](https://ohdsi.github.io/omock/) | A utility for creating mock `cdm` objects for testing and development purposes. |
 
 ### Cohort Generation Layer
 These packages are used to define and create the patient populations (cohorts)
@@ -97,8 +98,8 @@ that form the basis of any study.
 
 | Library | Purpose |
 | :--- | :--- |
-| **`CodelistGenerator`** | Creates codelists (sets of medical codes) from OMOP concept sets. |
-| [**`CohortConstructor`**](./package_reference/cohortconstructor.md) | Builds patient cohorts from codelists and other criteria, such as temporal windows or intersections with other cohorts. |
+| [**`CodelistGenerator`**](https://darwin-eu.github.io/CodelistGenerator/) | Creates codelists (sets of medical codes) from OMOP concept sets. |
+| [**`CohortConstructor`**](https://ohdsi.github.io/CohortConstructor/) | Builds patient cohorts from codelists and other criteria, such as temporal windows or intersections with other cohorts. |
 
 ### Analysis Layer
 This layer contains packages that perform specific types of epidemiological or
@@ -106,12 +107,12 @@ characterization analyses on the generated cohorts.
 
 | Library | Purpose |
 | :--- | :--- |
-| **`CohortCharacteristics`** | Summarizes the baseline characteristics of a cohort, including demographics, comorbidities, and other features. |
-| **`IncidencePrevalence`** | Calculates the incidence and prevalence of health outcomes within a study population. |
-| **`DrugUtilisation`** | Analyzes patterns of drug use, such as treatment pathways and adherence. |
-| **`CohortSurvival`** | Performs time-to-event (survival) analysis to estimate the risk of outcomes over time. |
-| **`PatientProfiles`** | Adds detailed demographic and clinical features to patient cohorts for in-depth characterization. |
-| **`OmopSketch`** | Provides a quick summary or "sketch" of the data in an OMOP CDM instance. |
+| [**`CohortCharacteristics`**](https://darwin-eu.github.io/CohortCharacteristics/) | Summarizes the baseline characteristics of a cohort, including demographics, comorbidities, and other features. |
+| [**`IncidencePrevalence`**](https://darwin-eu.github.io/IncidencePrevalence/) | Calculates the incidence and prevalence of health outcomes within a study population. |
+| [**`DrugUtilisation`**](https://darwin-eu.github.io/DrugUtilisation/) | Analyzes patterns of drug use, such as treatment pathways and adherence. |
+| [**`CohortSurvival`**](https://darwin-eu.github.io/CohortSurvival/) | Performs time-to-event (survival) analysis to estimate the risk of outcomes over time. |
+| [**`PatientProfiles`**](https://darwin-eu.github.io/PatientProfiles/) | Adds detailed demographic and clinical features to patient cohorts for in-depth characterization. |
+| [**`OmopSketch`**](https://ohdsi.github.io/OmopSketch/) | Provides a quick summary or "sketch" of the data in an OMOP CDM instance. |
 
 ### Validation Layer
 This layer is focused on quality control and ensuring the clinical validity of
@@ -119,7 +120,7 @@ the cohort definitions.
 
 | Library | Purpose |
 | :--- | :--- |
-| **`PhenotypeR`** | Provides a comprehensive suite of diagnostics to evaluate and validate the quality of clinical phenotype definitions. |
+| [**`PhenotypeR`**](https://ohdsi.github.io/PhenotypeR/) | Provides a comprehensive suite of diagnostics to evaluate and validate the quality of clinical phenotype definitions. |
 
 ### Visualization & Reporting Layer
 These packages are used to generate the final outputs of a study, including
@@ -127,8 +128,8 @@ tables, figures, and interactive applications.
 
 | Library | Purpose |
 | :--- | :--- |
-| **`visOmopResults`** | Creates standardized visualizations and tables from the results of other OHDSI packages. |
-| **`ggplot2`** | A general-purpose and highly flexible plotting library used for creating custom visualizations. |
+| [**`visOmopResults`**](https://darwin-eu.github.io/visOmopResults/) | Creates standardized visualizations and tables from the results of other OHDSI packages. |
+| [**`ggplot2`**](https://ggplot2.tidyverse.org/) | A general-purpose and highly flexible plotting library used for creating custom visualizations. |
 
 # Performing an analysis
 

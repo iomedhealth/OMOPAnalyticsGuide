@@ -2,7 +2,7 @@
 layout: default
 title: R Package Reference
 parent: Data Analysis
-nav_order: 3
+nav_order: 4
 has_children: true
 ---
 
@@ -17,22 +17,22 @@ For information about the educational materials and practical exercises, see [Ed
 The R package ecosystem follows a layered architecture where foundation packages provide core functionality, and specialized packages build upon them for domain-specific analyses.
 
 ## Foundation Packages
-- [omopgenerics](./omopgenerics)
-- [CDMConnector](./cdmconnector)
-- [omock](./omock)
+- [omopgenerics](https://darwin-eu.github.io/omopgenerics/)
+- [CDMConnector](https://darwin-eu.github.io/CDMConnector/)
+- [omock](https://darwin-eu.github.io/omock/)
 
 ## Core Analytics Packages
-- [CohortConstructor](./cohortconstructor)
-- [CohortCharacteristics](./cohortcharacteristics)
-- [OmopSketch](./omopsketch)
-- [PatientProfiles](./patientprofiles)
+- [CohortConstructor](https://ohdsi.github.io/CohortConstructor/)
+- [CohortCharacteristics](https://darwin-eu.github.io/CohortCharacteristics/)
+- [OmopSketch](https://darwin-eu.github.io/OmopSketch/)
+- [PatientProfiles](https://darwin-eu.github.io/PatientProfiles/)
 
 ## Specialized Analytics Packages
-- [CodelistGenerator](./codelistgenerator)
-- [DrugUtilisation](./drugutilisation)
-- [CohortSurvival](./cohortsurvival)
-- [IncidencePrevalence](./incidenceprevalence)
-- [PhenotypeR](./phenotyper)
+- [CodelistGenerator](https://darwin-eu.github.io/CodelistGenerator/)
+- [DrugUtilisation](https://darwin-eu.github.io/DrugUtilisation/)
+- [CohortSurvival](https://darwin-eu.github.io/CohortSurvival/)
+- [IncidencePrevalence](https://darwin-eu.github.io/IncidencePrevalence/)
+- [PhenotypeR](https://ohdsi.github.io/PhenotypeR/)
 
 ```mermaid
 graph TB

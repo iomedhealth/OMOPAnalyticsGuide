@@ -5,7 +5,7 @@ parent: R Package Reference
 nav_order: 3
 ---
 
-# omock
+# [omock](https://ohdsi.github.io/omock/)
 
 Generates synthetic OMOP CDM datasets for development and testing.
 

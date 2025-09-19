@@ -5,10 +5,10 @@ parent: R Package Reference
 nav_order: 3
 ---
 
-# PatientProfiles
+# [PatientProfiles](https://darwin-eu.github.io/PatientProfiles/)
 {: .no_toc}
 
-PatientProfiles is an R package designed to help you characterize and analyze patient cohorts within the OMOP Common Data Model (CDM). The main purpose of the package is to facilitate an iterative workflow where you can easily add new data points of interest to a cohort table and then summarize or plot the results. This allows you to progressively build a detailed profile of a patient group, analyze the findings, and use those insights to refine your cohort or investigate new characteristics.
+[PatientProfiles](https://darwin-eu.github.io/PatientProfiles/) is an R package designed to help you characterize and analyze patient cohorts within the OMOP Common Data Model (CDM). The main purpose of the package is to facilitate an iterative workflow where you can easily add new data points of interest to a cohort table and then summarize or plot the results. This allows you to progressively build a detailed profile of a patient group, analyze the findings, and use those insights to refine your cohort or investigate new characteristics.
 
 1. TOC
 {:toc}

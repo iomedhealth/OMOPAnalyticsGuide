@@ -5,11 +5,11 @@ parent: R Package Reference
 nav_order: 11
 ---
 
-# visOmopResults
+# [visOmopResults](https://darwin-eu.github.io/visOmopResults/)
 
 ## Overview
 
-The `visOmopResults` R package is designed to transform OMOP analysis results into publication-ready tables and plots. It serves as a visualization layer for the OMOP (Observational Medical Outcomes Partnership) ecosystem, specializing in converting `summarised_result` objects from various analysis packages into formatted outputs suitable for research publications, reports, and interactive applications.
+The `[visOmopResults](https://darwin-eu.github.io/visOmopResults/)` R package is designed to transform OMOP analysis results into publication-ready tables and plots. It serves as a visualization layer for the OMOP (Observational Medical Outcomes Partnership) ecosystem, specializing in converting `summarised_result` objects from various analysis packages into formatted outputs suitable for research publications, reports, and interactive applications.
 
 ### Key Features:
 - **Multi-Backend Table Generation**: Create tables rendered with `gt`, `flextable`, `DT`, `reactable`, and `tinytable`.

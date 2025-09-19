@@ -5,7 +5,7 @@ parent: R Package Reference
 nav_order: 2
 ---
 
-# CDMConnector
+# [CDMConnector](https://darwin-eu.github.io/CDMConnector/)
 
 Provides database connectivity and CDM object management for OMOP databases.
 

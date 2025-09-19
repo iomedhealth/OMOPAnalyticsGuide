@@ -5,7 +5,7 @@ nav_order: 1
 parent: R Package Reference
 ---
 
-# CohortConstructor
+# [CohortConstructor](https://ohdsi.github.io/CohortConstructor/)
 {: .no_toc}
 
 This document provides a comprehensive guide to using the `CohortConstructor` R

@@ -5,9 +5,9 @@ parent: R Package Reference
 nav_order: 1
 ---
 
-# omopgenerics
+# [omopgenerics](https://darwin-eu.github.io/omopgenerics/)
 
-The `omopgenerics` package provides core data structures and generic functions that standardize how OMOP data is represented and manipulated across the ecosystem.
+The [`omopgenerics`](https://darwin-eu.github.io/omopgenerics/) package provides core data structures and generic functions that standardize how OMOP data is represented and manipulated across the ecosystem.
 
 ## Key Data Classes
 

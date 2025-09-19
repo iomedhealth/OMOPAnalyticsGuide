@@ -5,11 +5,11 @@ parent: R Package Reference
 nav_order: 8
 ---
 
-# DrugUtilisation
+# [DrugUtilisation](https://darwin-eu.github.io/DrugUtilisation/)
 
 ## Overview
 
-The DrugUtilisation package is designed to summarize patient-level drug utilization cohorts using data mapped to the Observational Medical Outcomes Partnership (OMOP) Common Data Model. The package supports the creation of both new user and prevalent user cohorts, enabling comprehensive characterization of drug use patterns, indications, and treatment outcomes.
+The [DrugUtilisation](https://darwin-eu.github.io/DrugUtilisation/) package is designed to summarize patient-level drug utilization cohorts using data mapped to the Observational Medical Outcomes Partnership (OMOP) Common Data Model. The package supports the creation of both new user and prevalent user cohorts, enabling comprehensive characterization of drug use patterns, indications, and treatment outcomes.
 
 **Core Objectives:**
 - Generate and refine drug utilization cohorts from OMOP CDM data

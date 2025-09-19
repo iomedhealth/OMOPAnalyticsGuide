@@ -2,7 +2,7 @@
 layout: default
 title: Setup
 parent: Data Analysis
-nav_order: 1
+nav_order: 3
 ---
 
 # Getting Started
@@ -69,8 +69,8 @@ correctly.
 
 Once the environment is configured and verified, proceed to explore the core analytics workflow and specific package functionalities:
 
-1.  **Database Exploration**: Use `OmopSketch` to characterize your database structure
-2.  **Concept Definition**: Create medical concept lists with `CodelistGenerator`
-3.  **Cohort Building**: Define patient populations using `CohortConstructor`
-4.  **Population Analysis**: Characterize cohorts with `CohortCharacteristics`
-5.  **Specialized Studies**: Conduct domain-specific analyses with `DrugUtilisation`, `IncidencePrevalence`, or `CohortSurvival`
+1.  **Database Exploration**: Use [`OmopSketch`](https://darwin-eu.github.io/OmopSketch/) to characterize your database structure
+2.  **Concept Definition**: Create medical concept lists with [`CodelistGenerator`](https://darwin-eu.github.io/CodelistGenerator/)
+3.  **Cohort Building**: Define patient populations using [`CohortConstructor`](https://ohdsi.github.io/CohortConstructor/)
+4.  **Population Analysis**: Characterize cohorts with [`CohortCharacteristics`](https://darwin-eu.github.io/CohortCharacteristics/)
+5.  **Specialized Studies**: Conduct domain-specific analyses with [`DrugUtilisation`](https://darwin-eu.github.io/DrugUtilisation/), [`IncidencePrevalence`](https://darwin-eu.github.io/IncidencePrevalence/), or [`CohortSurvival`](https://darwin-eu.github.io/CohortSurvival/)
