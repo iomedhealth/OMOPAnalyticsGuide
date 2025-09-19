@@ -10,15 +10,27 @@ has_children: true
 # Executing an Observational Study
 {: .no_toc }
 
-This guide provides a practical framework for executing an observational study using the OHDSI R packages. We will walk through the key phases of a study, using examples from a real-world study on Hypertrophic Cardiomyopathy (HCM) to illustrate each step.
+Observational studies using real-world data (RWD) are essential for
+understanding disease, treatment effectiveness, and patient outcomes in a
+real-world setting. The OMOP Common Data Model (CDM) provides the global
+standard for structuring this data, enabling transparent and reproducible
+research across different healthcare databases.
+
+To harness the power of the OMOP CDM, a suite of specialized R packages has
+been developed. These packages provide a robust framework for every stage of an
+observational study, from defining patient populations to generating final
+results. Using this standardized toolkit ensures that research is not only
+efficient but also adheres to the highest scientific standards, as promoted by
+regulatory bodies like the European Medicines Agency (EMA) through initiatives
+such as DARWIN EU.
+
+This guide provides a practical, step-by-step framework for executing an
+observational study using these tools. We will walk through the key phases of a
+study, using code examples to illustrate each step.
 
 1. TOC
 {:toc}
 
-These packages form a cohesive ecosystem for conducting observational research
-on the OMOP Common Data Model (CDM). They are organized into layers, each with
-a specific semantic purpose, from data connection to final analysis and
-visualization.
 
 ## Package Interconnectivity
 
@@ -195,6 +207,7 @@ Base cohort creation functions:
 - `demographicsCohort()` - creates cohorts based on demographic criteria
 - `measurementCohort()` - creates cohorts based on measurement values
 - `deathCohort()` - creates cohorts based on death records
+
 
 ### Codelist and Cohort Generation
 - **CodelistGenerator**: Use `CodelistGenerator` to create codelists from concept sets. A codelist is a set of medical codes (e.g., for a disease or a drug) that define a clinical idea.
