@@ -15,6 +15,143 @@ This guide provides a practical framework for executing an observational study u
 1. TOC
 {:toc}
 
+These packages form a cohesive ecosystem for conducting observational research
+on the OMOP Common Data Model (CDM). They are organized into layers, each with
+a specific semantic purpose, from data connection to final analysis and
+visualization.
+
+## Package Interconnectivity
+
+The following diagram illustrates how these packages work together in a typical
+analysis pipeline. The flow starts from the **Foundation Layer** for data
+connection, moves to the **Cohort Generation Layer** to define populations,
+proceeds to the **Analysis** and **Validation Layers** for the core scientific
+work, and ends with the **Visualization Layer** for reporting.
+
+```mermaid
+graph TB
+    subgraph "Support"
+        A["omopgenerics"]
+        Z["omock"]
+    end
+    subgraph "Foundation Layer"
+        O@{ shape: cyl, label: "OMOP CDM Database" }
+        O --> B["CDMConnector"]
+        O --> F["OmopSketch"]
+    end
+
+    subgraph "Cohort Generation Layer"
+        B --> D["CodelistGenerator"]
+        D --> E["CohortConstructor"]
+    end
+
+    subgraph "Analysis Layer"
+        E --> G["CohortCharacteristics"]
+        E --> H["IncidencePrevalence"]
+        E --> I["DrugUtilisation"]
+        E --> J["CohortSurvival"]
+        E --> K["PatientProfiles"]
+    end
+
+    subgraph "Validation Layer"
+        E --> M["PhenotypeR"]
+    end
+
+    subgraph "Visualization & Tables"
+        G --> L["visOmopResults"]
+        H --> L
+        I --> L
+        J --> L
+        K --> L
+        M --> L
+    end
+```
+
+## Package Categories and Purposes
+
+### Foundation Layer
+These are the core packages that establish the connection to the database and
+provide the basic infrastructure for all other operations.
+
+| Library | Purpose |
+| :--- | :--- |
+| **`omopgenerics`** | Provides a common set of classes and methods to ensure interoperability between different OHDSI packages. |
+| **`CDMConnector`** | Establishes and manages the connection to an OMOP CDM database, creating the `cdm` object. |
+| **`omock`** | A utility for creating mock `cdm` objects for testing and development purposes. |
+
+### Cohort Generation Layer
+These packages are used to define and create the patient populations (cohorts)
+that form the basis of any study.
+
+| Library | Purpose |
+| :--- | :--- |
+| **`CodelistGenerator`** | Creates codelists (sets of medical codes) from OMOP concept sets. |
+| **`CohortConstructor`** | Builds patient cohorts from codelists and other criteria, such as temporal windows or intersections with other cohorts. |
+
+### Analysis Layer
+This layer contains packages that perform specific types of epidemiological or
+characterization analyses on the generated cohorts.
+
+| Library | Purpose |
+| :--- | :--- |
+| **`CohortCharacteristics`** | Summarizes the baseline characteristics of a cohort, including demographics, comorbidities, and other features. |
+| **`IncidencePrevalence`** | Calculates the incidence and prevalence of health outcomes within a study population. |
+| **`DrugUtilisation`** | Analyzes patterns of drug use, such as treatment pathways and adherence. |
+| **`CohortSurvival`** | Performs time-to-event (survival) analysis to estimate the risk of outcomes over time. |
+| **`PatientProfiles`** | Adds detailed demographic and clinical features to patient cohorts for in-depth characterization. |
+| **`OmopSketch`** | Provides a quick summary or "sketch" of the data in an OMOP CDM instance. |
+
+### Validation Layer
+This layer is focused on quality control and ensuring the clinical validity of
+the cohort definitions.
+
+| Library | Purpose |
+| :--- | :--- |
+| **`PhenotypeR`** | Provides a comprehensive suite of diagnostics to evaluate and validate the quality of clinical phenotype definitions. |
+
+### Visualization & Reporting Layer
+These packages are used to generate the final outputs of a study, including
+tables, figures, and interactive applications.
+
+| Library | Purpose |
+| :--- | :--- |
+| **`visOmopResults`** | Creates standardized visualizations and tables from the results of other OHDSI packages. |
+| **`ggplot2`** | A general-purpose and highly flexible plotting library used for creating custom visualizations. |
+
+# Performing an analysis
+
+The following diagram provides a high-level overview of the sequential phases involved in a typical observational study.
+
+```mermaid
+graph TD
+    subgraph "Phase 1: Setup"
+        A[Environment & Database Setup]
+    end
+
+    subgraph "Phase 2: Cohort Generation"
+        A --> C[Codelist & Cohort Generation]
+    end
+
+    subgraph "Phase 3: Quality Control"
+        C --> E[Attrition Tracking]
+    end
+
+    subgraph "Phase 4: Analysis"
+        E --> F[Baseline Characteristics]
+        F --> G[Specialized Epidemiological Analyses]
+    end
+
+    subgraph "Phase 5: Results"
+        G --> H[Generate Tables & Figures]
+        H --> I[Export Results]
+    end
+
+    subgraph "Phase 6: Validation"
+        C --> J[Phenotype Diagnostics]
+        J --> I
+    end
+```
+
 ## Phase 1: Study Setup and Configuration
 
 The initial phase involves setting up the R environment and establishing a connection to the database.
