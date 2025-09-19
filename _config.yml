@@ -9,7 +9,7 @@ back_to_top: true
 back_to_top_text: "Back to top"
 
 url: https://docs.iomed.health
-
+footer_content: 'Copyright &copy; 2017-2025 IOMED Medical Solutions SL.'
 aux_links:
   Main Site: https://iomed.health
 

@@ -102,7 +102,7 @@ contact them about participating in the trial.
   to them. The hospital's research team then uses this list to fast-track their
   recruitment efforts, saving significant time and money.
 
-# Summary of Examples Across the Product Lifecycle
+# Examples Across the Product Lifecycle
 
 These data solutions can be applied across the entire lifecycle of a
 therapeutic product, from early development to post-market surveillance.

@@ -32,3 +32,33 @@ The R package ecosystem follows a layered architecture where foundation packages
 - [CohortSurvival](./cohortsurvival)
 - [IncidencePrevalence](./incidenceprevalence)
 - [PhenotypeR](./phenotyper)
+
+```mermaid
+graph TB
+    subgraph "Foundation Layer"
+        A["omopgenerics"] --> B["CDMConnector"]
+        A --> C["omock"]
+    end
+
+    subgraph "Analysis Layer"
+        B --> D["CodelistGenerator"]
+        B --> E["CohortConstructor"]
+        B --> F["OmopSketch"]
+        D --> E
+        E --> G["CohortCharacteristics"]
+        E --> H["IncidencePrevalence"]
+        E --> I["DrugUtilisation"]
+        E --> J["CohortSurvival"]
+        E --> K["PhenotypeR"]
+    end
+
+    subgraph "Output Layer"
+        G --> L["visOmopResults"]
+        H --> L
+        I --> L
+        J --> L
+        K --> L
+    end
+```
+
+This diagram represents the core architecture of the R package ecosystem. The workflow follows a five-phase approach from database connection through specialized epidemiological analyses to standardized result outputs.

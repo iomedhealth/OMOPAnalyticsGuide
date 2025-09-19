@@ -1,80 +1,161 @@
 ---
+
 layout: default
 title: Data Analysis
 nav_order: 3
 has_children: true
+
 ---
-# Data Analysis
 
-## Phase 02: Data Mediation Execution
+# Executing an Observational Study
+{: .no_toc }
 
-Executing a Data Mediation using IOMED's infrastructure is a meticulous and multi-faceted process that transforms raw clinical data into scientifically rigorous findings. This phase encompasses protocol development, data selection, cohort identification, and rigorous validation mechanisms to ensure the reliability of results. AI-powered methodologies, including Natural Language Processing (NLP) and Automated Terminology Mapping (ATM), enhance the precision and completeness of extracted information. Each step is carefully designed to align with international research standards and regulatory requirements, ensuring that results are reproducible and clinically meaningful.
+This guide provides a practical framework for executing an observational study using the OHDSI R packages. We will walk through the key phases of a study, using examples from a real-world study on Hypertrophic Cardiomyopathy (HCM) to illustrate each step.
 
-![](/assets/images/image8.png)
+1. TOC
+{:toc}
 
-### 1. Development of Data Mediation Protocols
+## Phase 1: Study Setup and Configuration
 
-A rigorously structured Data Mediation protocol is the cornerstone of a scientifically valid research project. The protocol serves as a blueprint, outlining the objectives, methodology, analytical approach, and ethical considerations. The first step in protocol development involves defining the research question and establishing the hypothesis that the study seeks to address.
+The initial phase involves setting up the R environment and establishing a connection to the database.
 
-The protocol details inclusion and exclusion criteria for patient selection, ensuring a clearly defined cohort. Additionally, it specifies the data sources to be used, including structured electronic health records (EHRs) and unstructured clinical narratives. A key component of the protocol is the statistical analysis plan, which defines the methodologies for hypothesis testing, confounder adjustments, and risk stratification. This helps to delineate the dataset necessary for the Data Mediation.
+### Environment Setup
+- **Dependency Management**: It is best practice to use `renv` to ensure a reproducible environment with consistent package versions. This creates a `renv.lock` file that captures the state of your project's dependencies.
 
-Before data extraction can proceed, the protocol undergoes multiple levels of review, including Institutional Review Boards (IRBs) by the Data Holders and Ethics Committees (EC). These reviews play a critical role in ensuring that research methodologies align with ethical and regulatory standards while safeguarding patient privacy. However, they can significantly impact Data Mediation timelines, as approval processes often involve multiple iterations of document revisions, responses to ethical concerns, and additional data privacy assessments. Common challenges in obtaining approvals include varying regional regulatory requirements, institutional hesitancy regarding data sharing, and the necessity of providing extensive documentation on AI-driven data processing methodologies. Addressing these challenges proactively through clear communication with review boards, specific training in each Data Holder and robust compliance frameworks can help mitigate delays and streamline the approval process. These reviews ensure compliance with legal, ethical, and scientific standards while safeguarding patient privacy. Finally, the Data Mediation protocol is registered with appropriate regulatory bodies where applicable.
+### Database Connection
+- **Connection**: The first step in your R script is to establish a live connection to the OMOP CDM database using the `CDMConnector` package. This creates a `cdm` object that points to the database tables without loading them into memory. For this example, we'll use a local DuckDB database.
 
-### 2. Defining of the data of interest for the Cohorts
+```r
+library(CDMConnector)
+library(duckdb)
 
-A pivotal step in Data Mediation execution is defining the specific clinical variables and concepts that will be used to construct research cohorts and the delivery format. Concept sets are collections of standardized terms that correspond to medical conditions, procedures, laboratory results, and medications, all mapped to the OMOP Common Data Model (CDM).
+# Connect to a local DuckDB database file
+db_file <- "omop_<data_order_id>_<date>.duckdb"
 
-To ensure robustness, concept sets undergo an extensive curation process, involving domain experts and clinical researchers who review and refine selections. The goal is to capture relevant patient attributes with high specificity and sensitivity while ensuring cross-Data Holder applicability. Advanced AI-assisted tools support this process by identifying synonyms, hierarchical relationships, and alternative coding systems used in various hospital environments.
+con <- DBI::dbConnect(
+  duckdb(),
+  dbdir = db_file
+)
 
-![](/assets/images/image4.png)
+# Define database schemas to read the data and store the results
+cdm_schema <- "cdm"
+write_schema <- "analysis"
 
-Once finalized, the concept sets serve as the basis for extracting patient cohorts, ensuring uniform data representation across multiple participating Data Holders. This standardization facilitates comparative analyses, meta-analyses, and large-scale observational studies. Depending on the Data Mediation, validation by Key Opinion Leaders (KOLs) can ensure scientific rigor and clinical relevance.
+# Create the cdm object
+cdm <- cdmFromCon(
+  con = con,
+  cdm_schema = cdm_schema,
+  write_schema = write_schema
+)
+```
 
-![](/assets/images/image16.png)
+## Phase 2: Cohort Definition and Instantiation
 
-**Table:** A description of the deliverable types available in the platform.
+This phase involves defining the medical concepts of interest and constructing patient cohorts based on these concepts. The `CodelistGenerator` package provides systematic methods for identifying relevant medical concepts, while `CohortConstructor` transforms these concepts into patient cohorts.
 
-### 3. Patient Cohort Identification and Validation
+Base cohort creation functions:
+- `conceptCohort()` - creates cohorts based on clinical concepts
+- `demographicsCohort()` - creates cohorts based on demographic criteria
+- `measurementCohort()` - creates cohorts based on measurement values
+- `deathCohort()` - creates cohorts based on death records
 
-Identifying patient cohorts is a critical phase, requiring precise query execution within the OMOP CDM framework. Predefined inclusion and exclusion criteria are translated into queries that extract relevant patient data from harmonized hospital databases.
+### Codelist and Cohort Generation
+- **CodelistGenerator**: Use `CodelistGenerator` to create codelists from concept sets. A codelist is a set of medical codes (e.g., for a disease or a drug) that define a clinical idea.
+- **CohortConstructor**: Use `CohortConstructor` to build cohorts from these codelists.
 
-After cohort extraction, a comprehensive validation process begins. Algorithms perform initial checks, detecting inconsistencies or anomalies in selected patients. Subsequently, clinician-led adjudication is conducted to verify that the retrieved patients meet the intended Data Mediation criteria. This validation phase is crucial for eliminating false positives and ensuring the fidelity of the cohort.
+For example, to create a cohort of patients with Hypertrophic Cardiomyopathy (HCM) who have received a first-line therapy:
 
-Beyond individual patient validation, statistical techniques are employed to assess overall cohort representativeness. Comparative analyses are conducted against known epidemiological benchmarks to verify that the Data Mediation population reflects the real-world clinical landscape. If discrepancies arise, iterative refinements are made to the cohort selection algorithm to optimize sensitivity and specificity.
+```r
+library(CodelistGenerator)
+library(CohortConstructor)
 
-### 4. Iterative AI Model Refinement and Performance Optimization
+# 1. Get codelists for the disease and treatments
+hcm_codes <- get_codelist_from_concept_set(4247, cdm)
+beta_blockers_codes <- get_codelist_from_concept_set(4886, cdm)
+ccb_non_dhp_codes <- get_codelist_from_concept_set(4887, cdm)
 
-Given the dynamic nature of clinical data and evolving medical terminologies, AI models require continuous optimization to maintain high levels of accuracy. During Data Mediation execution, iterative AI model retraining is conducted using newly validated datasets, ensuring that algorithms remain robust and reflective of contemporary clinical practices.
+# 2. Combine treatment codes into a single "first-line therapy" codelist
+first_line_therapy_codes <- merge_codelists(
+  beta_blockers_codes,
+  ccb_non_dhp_codes
+)
 
-AI model retraining follows a structured pipeline: first, misclassified or uncertain data points are flagged for manual review by domain experts. These retraining cycles occur at regular intervals, typically aligned with major dataset updates or periodic performance evaluations. The benchmarks for determining model improvement include precision, recall, and F1-score metrics, which are continuously assessed against manually verified gold-standard datasets. Additionally, bias detection and mitigation assessments ensure that retraining enhances model fairness across different demographic and clinical subgroups. Once corrections are made, these verified datasets are fed back into the AI models to refine their classification accuracy. Additionally, bias assessments are conducted to ensure fairness across diverse patient populations, preventing systematic discrepancies based on demographic or socioeconomic factors.
+# 3. Create initial cohorts based on the codelists
+cdm$hcm <- concept_cohort(cdm, hcm_codes, name = "hcm")
+cdm$first_line_therapy <- concept_cohort(cdm, first_line_therapy_codes, name = "first_line_therapy")
 
-![](/assets/images/image9.png)
+# 4. Intersect the cohorts to find patients with HCM who have received the therapy
+cdm$hcm_first_line_treated <- cdm$first_line_therapy |>
+  require_cohort_intersect(
+    target_cohort_table = "hcm",
+    window = c(-Inf, 0) # The HCM diagnosis must be on or before the treatment start date
+  )
+```
 
-Regular performance monitoring is implemented, with precision-recall metrics used to evaluate AI model reliability. The goal of continuous retraining is to iteratively improve the accuracy and generalizability of automated data extraction processes, enhancing the quality of downstream research outcomes. This retraining and validation process is independently performed at every site within the IOMED federated network, ensuring that any AI-driven data extraction is accurate and reliable across all participating Data Holders. By conducting site-specific evaluations, discrepancies due to Data Holders differences in documentation and coding practices can be identified and corrected, strengthening the overall robustness of extracted datasets.
+## Phase 3: Data Quality and Attrition
 
-### 5. Delivery of the Data Mediation and External Quality Assurance
+After instantiating your cohort, it's crucial to understand how many patients were included or excluded at each step.
 
-Once validated, anonymized datasets are prepared for sharing with research collaborators, regulatory agencies, and scientific communities. Data sharing adheres to FAIR (Findable, Accessible, Interoperable, Reusable) principles, facilitating broader scientific engagement and secondary analyses by independent research groups.
+- **Attrition Tracking**: The `summarise_cohort_attrition()` function provides a detailed record of patient exclusions. This is often visualized with `plot_cohort_attrition()`.
 
-In parallel, structured quality assurance reports are generated, detailing the Data Mediation's methodology, cohort selection criteria, data transformation processes, and AI validation techniques. These reports serve as comprehensive documentation of the research workflow, enhancing credibility and enabling future methodological refinements.
+```r
+cdm$hcm_first_line_treated |>
+  summarise_cohort_attrition() |>
+  plot_cohort_attrition()
+```
+This plot helps ensure the logic of your cohort definition is working as expected and provides transparency for your final study report.
 
-The final phase involves the data delivery and external peer review by the partner performing the analysis on the data. External peers, often Contract Research Organizations (CROs), play a crucial role in maintaining data quality by independently reviewing and validating extracted datasets. Within the IOMED Data Space Platform, these external partners can formally report data quality incidents if discrepancies, inconsistencies, or anomalies are detected during their analyses.
+## Phase 4: Analysis Pipeline
 
-Each reported incident is logged into the Data Space Platform, where it undergoes structured investigation and resolution workflows. These processes adhere strictly to the ISO 9001-certified Quality Management System (QMS) established by IOMED, ensuring that all corrective actions follow standardized procedures, are traceable, and contribute to continuous quality improvement. Internal data validation teams systematically assess and prioritize reported issues, addressing them through iterative AI model refinements, clinician-led adjudications, or enhancements in terminology mapping.
+This is the core of the study, where you characterize the study population and perform your main analyses.
 
-Beyond external reviews, internal audits are also conducted to preemptively identify potential quality issues before data reaches external stakeholders. This dual-layered approach, combining internal validation with external quality assurance mechanisms, reinforces  the reliability and reproducibility of studies executed within IOMED's federated research network. By integrating ISO 9001-aligned quality management protocols, IOMED ensures that every dataset delivered meets the highest standards of accuracy and scientific rigor.
+### Baseline Characteristics
+A critical first step is to generate the baseline characteristics of your study population. The `CohortCharacteristics` package is designed for this purpose.
 
-# Conclusion
+- **Demographics**: You can easily compute age and sex for your cohort.
+- **Comorbidities and Clinical Events**: You can assess the prevalence of various conditions or events in your cohort's history.
 
-The execution of a Data Mediation using IOMED's infrastructure represents a highly structured and rigorous process, combining advanced AI-driven methodologies with robust data governance and quality assurance frameworks. By establishing strong institutional partnerships, ensuring compliance with regulatory standards, and employing sophisticated data integration techniques, IOMED enhances the accessibility and interoperability of real-world healthcare data.
+```r
+library(CohortCharacteristics)
 
-The Data Mediation execution phase further refines this process by leveraging Natural Language Processing (NLP) and Automated Terminology Mapping (ATM) to extract and standardize clinical concepts, ensuring that patient cohorts are precisely identified and validated. Continuous AI model retraining, coupled with independent site-specific evaluations, ensures that extracted data maintains the highest levels of accuracy and reliability across diverse healthcare settings.
+# Example: Summarize age and sex for the study cohort
+cdm$hcm_first_line_treated |>
+  add_age() |>
+  add_sex() |>
+  summarise_characteristics(
+    demographics = TRUE,
+    age_group = list(c(18, 49), c(50, 69), c(70, 150))
+  )
+```
 
-Furthermore, IOMED's ISO 9001-certified Quality Management System (QMS) provides a structured framework for both internal and external data quality validation. The ability for external peers, such as Contract Research Organizations (CROs), to report and resolve data quality incidents within the Data Space Platform ensures that studies maintain scientific rigor and reproducibility. This dual-layered validation approach strengthens the integrity of research findings and contributes to the broader adoption of real-world data in clinical decision-making and policy development.
+### Specialized Analyses
+Depending on your study's objectives, you can now run various specialized analyses:
+- **`IncidencePrevalence`**: To calculate the incidence and prevalence of health outcomes.
+- **`DrugUtilisation`**: To study patterns of medication use.
+- **`CohortSurvival`**: To perform survival analysis.
 
-Through this comprehensive, multi-phase approach, IOMED facilitates high-quality, large-scale clinical research while continuously improving data accuracy and standardization. The integration of cutting-edge AI tools with stringent quality control measures underscores IOMED's commitment to advancing evidence-based medicine, fostering innovation in healthcare research, and ultimately improving patient outcomes.
+## Phase 5: Results Generation
 
-![](/assets/images/image6.png)
+The final phase involves generating and exporting the results in a clear and shareable format.
 
-![](/assets/images/image12.jpg)
-![](/assets/images/image11.png)
+- **Tables and Figures**: The `visOmopResults` package provides tools to visualize your results. For example, you can create publication-ready tables of baseline characteristics.
+
+```r
+library(visOmopResults)
+
+# Generate and table the characteristics summary
+results <- cdm$hcm_first_line_treated |>
+  add_age() |>
+  add_sex() |>
+  summarise_characteristics()
+
+table_characteristics(results)
+```
+
+- **Export Results**: You can export all results to structured formats like CSV for transparency, meta-analysis, or use in other programs.
+
+## Phase 6: Diagnostics and Validation
+
+Before and after your analysis, it is crucial to validate your cohort definitions.
+
+- **`PhenotypeR`**: The `PhenotypeR` package provides a comprehensive suite of diagnostics to evaluate the quality of your clinical phenotype definitions. This helps ensure that your study cohorts accurately represent the patient populations you intend to study.

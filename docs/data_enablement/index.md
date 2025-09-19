@@ -7,7 +7,12 @@ has_children: false
 
 # Preparing a Data Holder for Clinical Research
 
-The Data Space Platform prepares a Data Holder’s clinical data for secondary use in research. This process, called Data Enablement, enhances a hospital’s ability to participate in multicenter research, improve operations, and support clinical decision-making.
+The Data Space Platform prepares a Data Holder’s clinical data for secondary
+use in research. This process, called Data Enablement, enhances a hospital’s
+ability to participate in multicenter research, improve operations, and support
+clinical decision-making.
+
+![](/assets/images/enablement.svg)
 
 The enablement process is divided into three main phases:
 
@@ -15,9 +20,9 @@ The enablement process is divided into three main phases:
 2.  **Deployment:** Go-to architecture for hospital organizations.
 3.  **Readiness:** Ensuring data holders are prepared.
 
-## 1. Dimensioning: Analysis and Need Understanding
+## 1. Dimensioning
 
-The first step is to understand the hospital's existing data landscape. This involves a thorough analysis of three key areas:
+The first step is to understand and analyze the Data Holder's existing data landscape. This involves a thorough analysis of three key areas:
 
 ### Data Sources
 
@@ -50,7 +55,9 @@ The ELT (Extract, Load, Transform) process transforms raw data from various hosp
 2.  **Load:** The raw data is loaded into the Data Space environment within the hospital's secure infrastructure.
 3.  **Transformation:** Once loaded, the transformation process begins. This is the most critical step, where we clean, standardize, and harmonize the data. This includes two key AI-driven processes:
     *   **Automated Terminology Mapping (ATM):** For structured data, our AI models map different coding systems—whether international standards or internal hospital codes—to a single, standard OMOP vocabulary. For example, different codes for "hemoglobin" from different systems will be mapped to the single correct OMOP concept for hemoglobin.
+    ![Automated Terminology Mapping (ATM)](/assets/images/atm.png)
     *   **Natural Language Processing (NLP):** For unstructured text, our NLP models extract clinically relevant information. The models identify medical concepts (like diagnoses, medications, and symptoms), understand their context (e.g., negation, family history, current vs. past conditions), and map them to the appropriate OMOP concepts.
+    ![Natural Language Processing (NLP)](/assets/images/nlp.png)
 
 ### Anonymization
 

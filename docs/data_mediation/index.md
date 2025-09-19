@@ -15,6 +15,8 @@ The mediation process ensures that data is shared securely, ethically, and in
 compliance with all relevant regulations. It connects data holders (hospitals)
 with data users (researchers) through a structured, auditable workflow.
 
+Through this process, researchers can request different types of datasets, known as [Data Solutions](./data_solutions).
+
 ![](/assets/images/mediation.svg)
 
 The key stages of this process include:
