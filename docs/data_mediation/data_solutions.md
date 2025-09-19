@@ -7,7 +7,11 @@ parent: Data Mediation
 
 ---
 
-# **Data Solutions**
+# Data Solutions
+
+1. TOC
+{:toc}
+
 
 Once a Data Holder (e.g., a hospital) has its data standardized and ready for
 research through the "Enablement" phase, the mediation process can begin. This
@@ -15,7 +19,7 @@ involves connecting Data Holders and Data Users through a secure platform that
 manages the entire lifecycle of a data request. The platform offers several
 distinct data solutions, each designed for a specific need and use case.
 
-### Patient Count
+### Patient Count (PC)
 
 Patient Count is a simple but powerful feasibility tool. It allows a Data User
 to input specific inclusion and exclusion criteria (e.g., "female patients over
@@ -62,7 +66,7 @@ The main result of this solution:
   first-line and second-line therapies, patient demographics, and common
   comorbidities, helping them shape policy and clinical guidelines.
 
-### Patient-Level Data
+### Patient-Level Data (PLD)
 
 This is one of the most in-depth solutions, providing a fully anonymized,
 detailed, patient-specific dataset for a defined cohort. The data is exported
@@ -79,7 +83,7 @@ control, approving the request before any data is exported.
   years. This deep data allows them to train and validate a robust algorithm
   for early diagnosis support.
 
-### Patient Finder
+### Patient Finder (PF)
 
 The Patient Finder solution is specifically designed to accelerate clinical
 trial recruitment. Data Users define the protocol criteria, and the system
@@ -98,7 +102,7 @@ contact them about participating in the trial.
   to them. The hospital's research team then uses this list to fast-track their
   recruitment efforts, saving significant time and money.
 
-## Summary of Examples Across the Product Lifecycle
+# Summary of Examples Across the Product Lifecycle
 
 These data solutions can be applied across the entire lifecycle of a
 therapeutic product, from early development to post-market surveillance.

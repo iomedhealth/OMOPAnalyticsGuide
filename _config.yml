@@ -5,6 +5,8 @@ color_scheme: custom
 
 logo: "/assets/images/logo.png"
 favicon_ico: "/assets/images/favicon.ico"
+back_to_top: true
+back_to_top_text: "Back to top"
 
 url: https://docs.iomed.health
 
