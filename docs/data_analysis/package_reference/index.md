@@ -25,6 +25,7 @@ The R package ecosystem follows a layered architecture where foundation packages
 - [CohortConstructor](./cohortconstructor)
 - [CohortCharacteristics](./cohortcharacteristics)
 - [OmopSketch](./omopsketch)
+- [PatientProfiles](./patientprofiles)
 
 ## Specialized Analytics Packages
 - [CodelistGenerator](./codelistgenerator)
@@ -50,6 +51,7 @@ graph TB
         E --> I["DrugUtilisation"]
         E --> J["CohortSurvival"]
         E --> K["PhenotypeR"]
+        E --> M["PatientProfiles"]
     end
 
     subgraph "Output Layer"
@@ -58,6 +60,7 @@ graph TB
         I --> L
         J --> L
         K --> L
+        M --> L
     end
 ```
 
