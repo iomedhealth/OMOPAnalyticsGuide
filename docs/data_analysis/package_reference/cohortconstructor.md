@@ -6,8 +6,15 @@ parent: R Package Reference
 ---
 
 # CohortConstructor
+{: .no_toc}
 
-This document provides a comprehensive guide to using the `CohortConstructor` R package, designed to take you from a beginner to an expert user. We will cover everything from basic setup to advanced cohort manipulation and performance benchmarking.
+This document provides a comprehensive guide to using the `CohortConstructor` R
+package, designed to take you from a beginner to an expert user. We will cover
+everything from basic setup to advanced cohort manipulation and performance
+benchmarking.
+
+1. TOC
+{:toc}
 
 ## 1. Overview
 
@@ -23,75 +30,25 @@ This document provides a comprehensive guide to using the `CohortConstructor` R 
 ### System Architecture
 
 ```mermaid
-graph TB
-    subgraph "OMOP CDM Environment"
-        CDM[("OMOP CDM Database")]
-        CDMConn["CDMConnector"]
-        OG["omopgenerics"]
-        PP["PatientProfiles"]
+graph TD
+    subgraph "Start with Your Data"
+        A[("OMOP CDM Database")]
     end
 
-    subgraph "CohortConstructor Core"
-        BaseGen["Base Cohort Generation"]
-        ReqFilter["Requirement Filtering"]
-        CohortManip["Cohort Manipulation"]
-        DateOps["Date Operations"]
+    subgraph "Build & Refine Your Cohort"
+        B["Step 1: Create a Base Cohort<br/>(e.g., from concepts, demographics)"]
+        C["Step 2: Apply Requirements<br/>(e.g., filter by age, date ranges)"]
+        D["Step 3: Manipulate Cohorts<br/>(e.g., combine, split, sample)"]
     end
 
-    subgraph "Base Cohort Builders"
-        conceptCohort["conceptCohort"]
-        demographicsCohort["demographicsCohort"]
-        measurementCohort["measurementCohort"]
-        deathCohort["deathCohort"]
+    subgraph "Get Your Result"
+        E["Final Analysis Cohort"]
     end
 
-    subgraph "Requirement Functions"
-        requireDemographics["requireDemographics"]
-        requireCohortIntersect["requireCohortIntersect"]
-        requireConceptIntersect["requireConceptIntersect"]
-        requireTableIntersect["requireTableIntersect"]
-        requireInDateRange["requireInDateRange"]
-    end
-
-    subgraph "Manipulation Functions"
-        unionCohorts["unionCohorts"]
-        intersectCohorts["intersectCohorts"]
-        collapseCohorts["collapseCohorts"]
-        stratifyCohorts["stratifyCohorts"]
-        sampleCohorts["sampleCohorts"]
-        matchCohorts["matchCohorts"]
-    end
-
-    CDM --> CDMConn
-    CDMConn --> BaseGen
-    OG --> BaseGen
-    PP --> BaseGen
-
-    BaseGen --> conceptCohort
-    BaseGen --> demographicsCohort
-    BaseGen --> measurementCohort
-    BaseGen --> deathCohort
-
-    ReqFilter --> requireDemographics
-    ReqFilter --> requireCohortIntersect
-    ReqFilter --> requireConceptIntersect
-    ReqFilter --> requireTableIntersect
-    ReqFilter --> requireInDateRange
-
-    CohortManip --> unionCohorts
-    CohortManip --> intersectCohorts
-    CohortManip --> collapseCohorts
-    CohortManip --> stratifyCohorts
-    CohortManip --> sampleCohorts
-    CohortManip --> matchCohorts
-
-    conceptCohort --> ReqFilter
-    demographicsCohort --> ReqFilter
-    measurementCohort --> ReqFilter
-    deathCohort --> ReqFilter
-
-    ReqFilter --> CohortManip
-    CohortManip --> DateOps
+    A --> B
+    B --> C
+    C --> D
+    D --> E
 ```
 
 ## 2. Getting Started
@@ -183,13 +140,10 @@ Creates cohorts based on patient characteristics like age, sex, and observation 
 
 ```mermaid
 flowchart TD
-    OBS["observation_period"] --> JOIN["Inner Join"]
-    PERSON["person"] --> JOIN
-    JOIN --> BASE["Base Cohort"]
-    BASE --> TRIM["trimDemographics()"]
-    TRIM --> AGE["Age Range Filtering"]
-    TRIM --> SEX["Sex Filtering"]
-    TRIM --> PRIOR["Prior Observation Filtering"]
+    BASE["Base Cohort"]
+    BASE --> AGE["Age Range Filtering"]
+    BASE --> SEX["Sex Filtering"]
+    BASE --> PRIOR["Prior Observation Filtering"]
     AGE & SEX & PRIOR --> FINAL["Final Demographics Cohort"]
 ```
 
@@ -199,7 +153,7 @@ Extends `conceptCohort()` with value-based filtering for measurements.
 
 ```mermaid
 graph TB
-    measurementCohort["measurementCohort()"] --> Values["Value Filtering"]
+    measurementCohort["Get the Measurement of interest (e.g. Hemoglobin value)"] --> Values["Value Filtering"]
     Values --> Concept["valueAsConcept<br/>Filter by concept_id values"]
     Values --> Number["valueAsNumber<br/>Filter by numeric ranges"]
     Number --> Unit["Unit-Specific Ranges"]
@@ -296,29 +250,8 @@ flowchart TD
 
 Compare the performance of `CohortConstructor` against the traditional CIRCE/ATLAS cohort generation system. The package includes pre-computed benchmark results (`benchmarkData`) across multiple databases.
 
-## 8. Package API Reference
 
-This is a summary of the most important functions. For a full list, see the package documentation.
-
-- **Builders**: `conceptCohort()`, `demographicsCohort()`, `measurementCohort()`, `deathCohort()`
-- **Requirements**: `requireDemographics()`, `requireInDateRange()`, `requireCohortIntersect()`, `requireConceptIntersect()`
-- **Manipulators**: `unionCohorts()`, `intersectCohorts()`, `collapseCohorts()`, `stratifyCohorts()`, `matchCohorts()`
-- **Date Modifiers**: `exitAtDeath()`, `trimToDateRange()`, `padCohortEnd()`
-- **Utilities**: `mockCohortConstructor()`, `benchmarkCohortConstructor()`
-- **Metadata**: `cohortCount()`, `settings()`, `attrition()` (re-exported from `omopgenerics`)
-
-## 9. Development Guide
-
-For those looking to contribute to `CohortConstructor`.
-
-### Testing Framework
-
-The package uses a robust testing framework with `testthat`. Key features include:
-- A sophisticated mock data generation system (`mockCohortConstructor()`) that creates realistic OMOP CDM data.
-- Comprehensive tests for each function, covering success cases, error conditions, and edge cases.
-- Multi-backend testing to ensure compatibility with different database systems (e.g., DuckDB, PostgreSQL).
-
-### Validation System
+## Validation System
 
 A strong validation system ensures data integrity and user-friendly error messages.
 - **Input Validation**: Functions like `validateCohortColumn()`, `validateDateRange()`, and `validateDemographicRequirements()` check inputs at the start of each function call.
