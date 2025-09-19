@@ -5,7 +5,7 @@ nav_order: 1
 has_children: false
 ---
 
-# Preparing a Hospital for Research
+# Preparing a Data Holder for Clinical Research
 
 The Data Space Platform prepares a Data Holder’s clinical data for secondary use in research. This process, called Data Enablement, enhances a hospital’s ability to participate in multicenter research, improve operations, and support clinical decision-making.
 
@@ -32,7 +32,7 @@ We then analyze the content and format of these sources, which can range from re
 
 ### Data Codifications and unstructured sources
 
-We analyze the coding systems used for structured data. We determine if the hospital uses standard systems like SNOMED CT, LOINC, or ICD-10, or if it uses internal, local codes. If non-standard codes are used, we can apply Natural Language Processing (NLP) to map them to the OMOP Common Data Model.
+We analyze the coding systems used for structured data. We determine if the hospital uses standard systems like SNOMED CT, LOINC, or ICD-10, or if it uses internal, local codes. If non-standard codes are used, we can apply multiple techniques to map them to the OMOP Common Data Model.
 
 ### Data Infrastructure
 
