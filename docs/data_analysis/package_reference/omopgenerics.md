@@ -2,7 +2,7 @@
 layout: default
 title: omopgenerics
 parent: Package Reference
-nav_order: 1
+nav_order: 13
 ---
 
 # [omopgenerics](https://darwin-eu.github.io/omopgenerics/)

@@ -2,7 +2,7 @@
 layout: default
 title: CDMConnector
 parent: Package Reference
-nav_order: 2
+nav_order: 9
 ---
 
 # [CDMConnector](https://darwin-eu.github.io/CDMConnector/)

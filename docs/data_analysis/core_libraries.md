@@ -1,31 +1,35 @@
 ---
 
 layout: default
-title: "From Research Questions to Analysis Tools"
+title: Core Libraries
 parent: Data Analysis
-nav_order: 2
+nav_order: 4
 
 ---
 
-# From Research Questions to Analysis Tools
+# Core Libraries for Observational Data Analysis
 {: .no_toc}
 
 1. TOC
 {:toc}
 
-## A Guide for the Clinical Researcher
 
-Every observational study begins with a clinical question. The power of a well-structured data ecosystem lies in its ability to provide a clear and efficient path from that question to a robust, reproducible answer. This guide maps the most common types of research questions to the specific R packages in the OHDSI/DARWIN EU toolkit designed to answer them.
+Every observational study begins with a clinical question. The power of a
+well-structured data ecosystem lies in its ability to provide a clear and
+efficient path from that question to a robust, reproducible answer. This guide
+maps the most common types of research questions to the specific R packages in
+the OHDSI/DARWIN EU toolkit designed to answer them.
 
-Think of this as your roadmap. Once you know what you want to ask, this page will point you to the right tool for the job.
+Think of this as your roadmap. Once you know what you want to ask, this page
+will point you to the right tool for the job.
 
 
 
-## 1. Descriptive Analyses: "Painting the Picture"
+## Descriptive Analyses: "Painting the Picture"
 
 **Research Goal:** To characterize populations and describe the frequency and distribution of diseases, treatments, and outcomes. These studies describe the "what" and "who" and are the foundation of nearly all observational research.
 
-### A. Cohort Characterization
+### Cohort Characterization
 
 *   **Clinical Questions:**
     *   "Who are the patients in my study population?"
@@ -37,7 +41,7 @@ Think of this as your roadmap. Once you know what you want to ask, this page wil
 *   **Primary Tool:** [**`CohortCharacteristics`**](./package_reference/cohortcharacteristics)
     *   This package is purpose-built to generate the detailed "Table 1" summaries that are a cornerstone of clinical research, allowing for easy comparison across different study groups.
 
-### B. Incidence and Prevalence
+### Incidence and Prevalence
 
 *   **Clinical Questions:**
     *   "How common is this disease in the population?" (Prevalence)
@@ -48,7 +52,7 @@ Think of this as your roadmap. Once you know what you want to ask, this page wil
 *   **Primary Tool:** [**`IncidencePrevalence`**](./package_reference/IncidencePrevalence)
     *   This package provides a standardized, validated methodology for calculating incidence and prevalence, which is critical for disease epidemiology and burden-of-illness studies.
 
-### C. Drug Utilization
+### Drug Utilization
 
 *   **Clinical Questions:**
     *   "How are medications being used in a real-world setting?"
@@ -62,11 +66,11 @@ Think of this as your roadmap. Once you know what you want to ask, this page wil
 
 
 
-## 2. Analytic & Comparative Studies: "Asking Why"
+## Analytic & Comparative Studies: "Asking Why"
 
 **Research Goal:** To compare the effects of different exposures (e.g., treatments, risk factors) on health outcomes. This is where we move from describing to inferring relationships. The central challenge in this type of study is controlling for **confounding**.
 
-### A. Comparative Effectiveness & Safety
+### Comparative Effectiveness & Safety
 
 *   **Clinical Questions:**
     *   "Is Treatment A more effective than Treatment B at preventing heart attacks?"
@@ -78,7 +82,7 @@ Think of this as your roadmap. Once you know what you want to ask, this page wil
 *   [**`CohortConstructor`**](./package_reference/cohortconstructor): The essential first step. This package allows you to build the highly specific treatment (target) and control (comparator) cohorts needed for the comparison. Its powerful temporal features are critical for defining new-user cohorts and applying washout periods.
 *   [**`CohortSurvival`**](https://darwin-eu-dev.github.io/CohortSurvival/): The primary tool for performing time-to-event (survival) analysis after you have constructed your cohorts. It allows you to calculate adjusted Hazard Ratios to compare outcomes over time.
 
-### B. Feature Engineering for Adjustment
+### Feature Engineering for Adjustment
 
 In a Randomized Controlled Trial (RCT), randomization is the powerful mechanism that ensures the treatment and control groups are, on average, comparable at baseline. In observational research, we have no such guarantee. The groups we wish to compare are often systematically different—a phenomenon known as **confounding by indication**. For example, sicker patients may be more likely to receive a newer drug, making a simple comparison of outcomes misleading.
 
@@ -115,7 +119,7 @@ A propensity score is the predicted probability of a patient receiving a specifi
 
 
 
-## 3. Prediction Modeling
+## Prediction Modeling
 
 **Research Goal:** To develop a model that predicts the future risk of an outcome for an individual patient based on their characteristics.
 
@@ -147,7 +151,7 @@ In summary, **`CohortConstructor`** is your tool for defining the "who" and "wha
 
 
 
-## 4. Phenotype Development and Validation
+## Phenotype Development and Validation
 
 **Research Goal:** To ensure that the way we define a disease or condition in the database is clinically accurate and valid. This is a foundational quality-control step for all other analyses.
 

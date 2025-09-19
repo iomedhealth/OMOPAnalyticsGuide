@@ -2,7 +2,7 @@
 layout: default
 title: PhenotypeR
 parent: Package Reference
-nav_order: 11
+nav_order: 10
 ---
 
 # [PhenotypeR](https://ohdsi.github.io/PhenotypeR/)
@@ -65,7 +65,7 @@ graph TB
         CDM_Tables["CDM Tables<br/>person, observation_period<br/>condition_occurrence, drug_exposure<br/>measurement, procedure_occurrence"]
         Achilles_Results["Achilles Results<br/>Pre-computed statistics"]
     end
-    
+
     subgraph "Core_Diagnostic_Engine"
         phenotypeDiagnostics["phenotypeDiagnostics()<br/>Main orchestrator function"]
         databaseDiagnostics["databaseDiagnostics()<br/>Database-level analysis"]
@@ -73,49 +73,49 @@ graph TB
         cohortDiagnostics["cohortDiagnostics()<br/>Cohort validation"]
         populationDiagnostics["populationDiagnostics()<br/>Incidence/prevalence"]
     end
-    
+
     subgraph "AI_Expectations_System"
         getCohortExpectations["getCohortExpectations()<br/>LLM-powered analysis"]
         tableCohortExpectations["tableCohortExpectations()<br/>Expectation formatting"]
         ellmer_integration["ellmer package<br/>LLM interface"]
     end
-    
+
     subgraph "Interactive_Visualization"
         shinyDiagnostics["shinyDiagnostics()<br/>App launcher"]
         shiny_ui["ui.R<br/>User interface"]
         shiny_server["server.R<br/>Business logic"]
         preprocess["preprocess.R<br/>Data preparation"]
     end
-    
+
     subgraph "Output_Formats"
         summarised_result["summarised_result<br/>Standardized results"]
         interactive_app["Interactive Shiny App"]
         static_reports["Static Reports"]
     end
-    
+
     CDM_Tables --> phenotypeDiagnostics
     Achilles_Results --> phenotypeDiagnostics
-    
+
     phenotypeDiagnostics --> databaseDiagnostics
     phenotypeDiagnostics --> codelistDiagnostics
     phenotypeDiagnostics --> cohortDiagnostics
     phenotypeDiagnostics --> populationDiagnostics
-    
+
     ellmer_integration --> getCohortExpectations
     getCohortExpectations --> tableCohortExpectations
-    
+
     databaseDiagnostics --> summarised_result
     codelistDiagnostics --> summarised_result
     cohortDiagnostics --> summarised_result
     populationDiagnostics --> summarised_result
-    
+
     summarised_result --> shinyDiagnostics
     tableCohortExpectations --> shinyDiagnostics
-    
+
     shinyDiagnostics --> shiny_ui
     shinyDiagnostics --> shiny_server
     preprocess --> shiny_ui
-    
+
     shiny_server --> interactive_app
     summarised_result --> static_reports
 ```

@@ -2,7 +2,7 @@
 layout: default
 title: IncidencePrevalence
 parent: Package Reference
-nav_order: 10
+nav_order: 5
 ---
 
 # [IncidencePrevalence](https://darwin-eu.github.io/IncidencePrevalence/)

@@ -2,7 +2,7 @@
 layout: default
 title: CohortSurvival
 parent: Package Reference
-nav_order: 9
+nav_order: 7
 ---
 
 # [CohortSurvival](https://darwin-eu-dev.github.io/CohortSurvival/)

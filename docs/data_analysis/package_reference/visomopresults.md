@@ -2,7 +2,7 @@
 layout: default
 title: visOmopResults
 parent: Package Reference
-nav_order: 11
+nav_order: 6
 ---
 
 # [visOmopResults](https://darwin-eu.github.io/visOmopResults/)

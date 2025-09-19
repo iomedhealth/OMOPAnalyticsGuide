@@ -2,7 +2,7 @@
 layout: default
 title: CodelistGenerator
 parent: Package Reference
-nav_order: 7
+nav_order: 1
 ---
 
 # [CodelistGenerator](https://darwin-eu.github.io/CodelistGenerator/)
@@ -72,30 +72,30 @@ graph TB
         CDM_DB["OMOP CDM Database"]
         JSON_CS["JSON Concept Sets"]
     end
-    
+
     subgraph "CodelistGenerator Package"
         subgraph "Core Generation"
             GET_CANDIDATE["getCandidateCodes"]
             GET_DRUG["getDrugIngredientCodes"]
             GET_ATC["getATCCodes"]
         end
-        
+
         subgraph "Analysis Functions"
             SUMMARISE_USE["summariseCodeUse"]
             SUMMARISE_ACHILLES["summariseAchillesCodeUse"]
         end
-        
+
         subgraph "Manipulation Functions"
             STRATIFY_CONCEPT["stratifyByConcept"]
             SUBSET_DOMAIN["subsetOnDomain"]
         end
     end
-    
+
     subgraph "External Dependencies"
         CDM_CONNECTOR["CDMConnector"]
         OMOP_GENERICS["omopgenerics"]
     end
-    
+
     subgraph "Output Types"
         CODELIST["Codelist Objects"]
         SUMMARISED_RESULT["SummarisedResult Objects"]
@@ -103,13 +103,13 @@ graph TB
 
     CDM_DB --> CDM_CONNECTOR
     JSON_CS --> GET_CANDIDATE
-    
+
     CDM_CONNECTOR --> GET_CANDIDATE
     CDM_CONNECTOR --> SUMMARISE_USE
-    
+
     OMOP_GENERICS --> CODELIST
     OMOP_GENERICS --> SUMMARISED_RESULT
-    
+
     SUMMARISE_USE --> SUMMARISED_RESULT
     GET_CANDIDATE --> CODELIST
 ```

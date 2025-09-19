@@ -2,7 +2,7 @@
 layout: default
 title: OmopSketch
 parent: Package Reference
-nav_order: 6
+nav_order: 12
 ---
 
 # [OmopSketch](https://ohdsi.github.io/OmopSketch/)

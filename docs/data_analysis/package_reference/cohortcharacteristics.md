@@ -2,7 +2,7 @@
 layout: default
 title: CohortCharacteristics
 parent: Package Reference
-nav_order: 2
+nav_order: 4
 ---
 
 # [CohortCharacteristics](https://darwin-eu.github.io/CohortCharacteristics/)
