@@ -6,15 +6,14 @@
 today=$(date +%d-%m-%Y)
 
 # Read from libraries.csv and scrape both docs and deepwiki
-tail -n +2 libraries.csv | while IFS=',' read -r repo url; do
-    lib=$(basename "$url")
-    echo "Scraping docs for $lib from $url"
-    base_dir="../reference/libraries/$today/raw/$lib"
+tail -n +2 libraries.csv | while IFS=',' read -r repo url name; do
+    echo "Scraping docs for $name from $url"
+    base_dir="../reference/libraries/$today/raw/$name"
     mkdir -p "$base_dir"
     python scrape_and_md.py "$url" -o "$base_dir"
 
     echo "Scraping deepwiki for $repo"
-    python scrape_deepwiki.py "$repo" "$today"
+    python scrape_deepwiki.py "$repo" "$today" --base-dir "$base_dir"
 done
 
 echo "Done. Scraped docs and deepwiki stored in ../reference/libraries/$today/raw/"
