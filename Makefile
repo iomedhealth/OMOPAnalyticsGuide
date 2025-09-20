@@ -15,7 +15,17 @@ export GEM_PATH := $(GEM_HOME)
 .PHONY: install serve build clean help debug merge_interim scrape_all merge_md
 
 help:
-	@bash utils/help.sh "$(abspath $(MAKEFILE_LIST))"
+	@echo "Usage:"
+	@echo "  make [target] [variables]"
+	@echo ""
+	@echo "Target(s):"
+	@grep -E '^[a-zA-Z0-9._-]+:.*?##.*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-25s\033[0m %s\n", $$1, $$2}'
+	@echo ""
+	@echo "Variable(s):"
+	@grep -E '^[a-zA-Z0-9_-]+ [:?!+]=.*?##.*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = "=.*?## "}; {printf "  \033[93m%-25s\033[0m %s\n", $$1, $$2}'
+	@echo ""
+	@echo "Example(s):"
+	@echo "  make build"
 
 
 install: ## Install dependencies
