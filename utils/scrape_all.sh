@@ -5,8 +5,8 @@
 # Get today's date in DD-MM-YYYY format
 today=$(date +%d-%m-%Y)
 
-# Read from libraries.csv and scrape both docs and deepwiki (first 2 for testing)
-tail -n +2 libraries.csv | head -n 2 | while IFS=',' read -r repo url; do
+# Read from libraries.csv and scrape both docs and deepwiki
+tail -n +2 libraries.csv | while IFS=',' read -r repo url; do
     lib=$(basename "$url")
     echo "Scraping docs for $lib from $url"
     base_dir="../reference/libraries/$today/raw/$lib"
