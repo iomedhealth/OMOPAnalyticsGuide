@@ -1,25 +1,20 @@
 #!/bin/bash
 
-# Script to scrape all library docs from README.md and combine into one MD file
+# Script to scrape all library docs and deepwiki content
 
-# Extract URLs from README.md
-urls=$(grep -o 'https://[^|]*' ../README.md)
+# Get today's date in DD-MM-YYYY format
+today=$(date +%d-%m-%Y)
 
-# Run scrape for each URL
-for url in $urls; do
+# Read from libraries.csv and scrape both docs and deepwiki
+tail -n +2 libraries.csv | while IFS=',' read -r repo url; do
     lib=$(basename "$url")
-    echo "Scraping $lib from $url"
-    python scrape_and_md.py "$url" -o "$lib.md"
+    echo "Scraping docs for $lib from $url"
+    base_dir="../reference/libraries/$today/raw/$lib"
+    mkdir -p "$base_dir"
+    python scrape_and_md.py "$url" -o "$base_dir/index.md"
+
+    echo "Scraping deepwiki for $repo"
+    python scrape_deepwiki.py "$repo"
 done
 
-# Combine all MD files
-cat *.md > combined_libraries.md
-
-# Clean up individual files (excluding combined)
-for file in *.md; do
-    if [[ "$file" != "combined_libraries.md" ]]; then
-        rm "$file"
-    fi
-done
-
-echo "Done. Combined file: combined_libraries.md"
+echo "Done. Scraped docs and deepwiki stored in ../reference/libraries/$today/raw/"

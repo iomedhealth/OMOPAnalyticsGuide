@@ -1,0 +1,14 @@
+repo,url
+darwin-eu/omopgenerics,https://darwin-eu.github.io/omopgenerics/
+darwin-eu/CDMConnector,https://darwin-eu.github.io/CDMConnector/
+ohdsi/omock,https://ohdsi.github.io/omock/
+ohdsi/CohortConstructor,https://ohdsi.github.io/CohortConstructor/
+darwin-eu/CohortCharacteristics,https://darwin-eu.github.io/CohortCharacteristics/
+ohdsi/OmopSketch,https://ohdsi.github.io/OmopSketch/
+darwin-eu/PatientProfiles,https://darwin-eu.github.io/PatientProfiles/
+darwin-eu/CodelistGenerator,https://darwin-eu.github.io/CodelistGenerator/
+darwin-eu/DrugUtilisation,https://darwin-eu.github.io/DrugUtilisation/
+darwin-eu-dev/CohortSurvival,https://darwin-eu-dev.github.io/CohortSurvival/
+darwin-eu/IncidencePrevalence,https://darwin-eu.github.io/IncidencePrevalence/
+ohdsi/PhenotypeR,https://ohdsi.github.io/PhenotypeR/
+darwin-eu/visOmopResults,https://darwin-eu.github.io/visOmopResults/
