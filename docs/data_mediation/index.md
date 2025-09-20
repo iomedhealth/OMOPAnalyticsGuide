@@ -4,7 +4,7 @@ title: Data Mediation
 nav_order: 2
 has_children: true
 ---
-# Data Mediation
+# Access to research-grade clinical data
 
 Data Mediation is the process of providing researchers with access to
 standardized, research-ready clinical data. This process begins after a
