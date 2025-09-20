@@ -7,6 +7,10 @@ today=$(date +%d-%m-%Y)
 
 # Read from libraries.csv and scrape both docs and deepwiki
 tail -n +2 libraries.csv | while IFS=',' read -r repo url name; do
+    # Trim whitespace
+    repo=$(echo "$repo" | xargs)
+    url=$(echo "$url" | xargs)
+    name=$(echo "$name" | xargs)
     echo "Scraping docs for $name from $url"
     base_dir="../reference/libraries/$today/raw/$name"
     mkdir -p "$base_dir"
