@@ -53,12 +53,13 @@ def fetch_deepwiki_content(repo_name):
     # Run the async function in sync context
     return asyncio.run(fetch_deepwiki_content_async(repo_name))
 
-def process_and_save_content(repo_name, content):
-    # Get today's date in DD-MM-YYYY format
-    today = datetime.now().strftime('%d-%m-%Y')
+def process_and_save_content(repo_name, content, today=None):
+    # Get today's date in DD-MM-YYYY format if not provided
+    if today is None:
+        today = datetime.now().strftime('%d-%m-%Y')
 
     # Define paths
-    base_dir = f"reference/libraries/{today}/raw/{repo_name.replace('/', '_')}"
+    base_dir = f"../reference/libraries/{today}/raw/{repo_name.replace('/', '_')}"
     os.makedirs(base_dir, exist_ok=True)
 
     # Split content by "# Page:"
@@ -87,14 +88,24 @@ def process_and_save_content(repo_name, content):
         print(f"Saved page: {filename}")
 
 def main():
-    if len(sys.argv) < 2 or len(sys.argv) > 3:
-        print("Usage: python scrape_deepwiki.py <repo_name> [content_file]")
+    if len(sys.argv) < 2 or len(sys.argv) > 4:
+        print("Usage: python scrape_deepwiki.py <repo_name> [date] [content_file]")
         sys.exit(1)
 
     repo_name = sys.argv[1]
+    today = None
+    content_file = None
 
-    if len(sys.argv) == 3:
-        content_file = sys.argv[2]
+    if len(sys.argv) >= 3:
+        # Check if second arg is date (DD-MM-YYYY) or content_file
+        if re.match(r'\d{2}-\d{2}-\d{4}', sys.argv[2]):
+            today = sys.argv[2]
+            if len(sys.argv) == 4:
+                content_file = sys.argv[3]
+        else:
+            content_file = sys.argv[2]
+
+    if content_file:
         with open(content_file, 'r', encoding='utf-8') as f:
             content = f.read()
     else:
@@ -106,7 +117,7 @@ def main():
         sys.exit(1)
 
     # Process and save
-    process_and_save_content(repo_name, content)
+    process_and_save_content(repo_name, content, today)
 
 if __name__ == "__main__":
     main()

@@ -5,20 +5,28 @@ import html2text
 import os
 import time
 import argparse
+import re
 
-def crawl_and_convert_to_markdown(base_url, output_filename):
+def sanitize_filename(title):
+    """Sanitize title for use as filename."""
+    # Remove special characters and replace spaces with underscores
+    sanitized = re.sub(r'[^\w\s-]', '', title)
+    sanitized = re.sub(r'[-\s]+', '_', sanitized)
+    return sanitized.strip('_')
+
+def crawl_and_convert_to_markdown(base_url, output_dir):
     """
     Recursively crawls a website, converts each page to Markdown,
-    and appends the content to a single output file.
+    and saves each page as a separate Markdown file.
 
     Args:
         base_url (str): The starting URL for the crawl.
-        output_filename (str): The name of the final Markdown file.
+        output_dir (str): The directory to save Markdown files.
     """
     # Use a set to store unique URLs to avoid duplicates and infinite loops
     collected_urls = set()
     urls_to_visit = [base_url]
-    
+
     # Get the domain and specific path to ensure we stay on the target site and directory
     base_domain = urlparse(base_url).netloc
     base_path = urlparse(base_url).path
@@ -26,10 +34,9 @@ def crawl_and_convert_to_markdown(base_url, output_filename):
         base_path += '/'
 
     print(f"Starting crawl from: {base_url}")
-    
-    # Open the output file in write mode to clear previous content
-    with open(output_filename, 'w', encoding='utf-8') as f:
-        f.write(f"# Content from {base_url}\n\n")
+
+    # Create output directory if it doesn't exist
+    os.makedirs(output_dir, exist_ok=True)
 
     while urls_to_visit:
         current_url = urls_to_visit.pop(0)
@@ -79,10 +86,20 @@ def crawl_and_convert_to_markdown(base_url, output_filename):
                 h.body_width = 0  # To prevent line wrapping
                 markdown_content = h.handle(str(main_content))
 
-                # Append the Markdown content to the output file
-                with open(output_filename, 'a', encoding='utf-8') as f:
-                    f.write(f"\n---\n\n## Content from {cleaned_url}\n\n")
+                # Extract title
+                title_tag = soup.find('title')
+                title = title_tag.get_text().strip() if title_tag else 'Untitled'
+
+                # Sanitize filename
+                filename = sanitize_filename(title) + '.md'
+                filepath = os.path.join(output_dir, filename)
+
+                # Write to file
+                with open(filepath, 'w', encoding='utf-8') as f:
+                    f.write(f"# {title}\n\n")
                     f.write(markdown_content)
+
+                print(f"Saved page: {filename}")
         
         except requests.exceptions.RequestException as e:
             print(f"Error processing {cleaned_url}: {e}")
@@ -92,20 +109,20 @@ def crawl_and_convert_to_markdown(base_url, output_filename):
         # Add a small delay to be polite to the server
         time.sleep(1)
 
-    print(f"\nCrawl finished. All content saved to {output_filename}")
+    print(f"\nCrawl finished. Pages saved to {output_dir}")
 
 def main():
     """
     Parses command-line arguments and runs the web crawler.
     """
-    parser = argparse.ArgumentParser(description="Recursively crawls a website and converts content to a single Markdown file.")
+    parser = argparse.ArgumentParser(description="Recursively crawls a website and saves each page as a separate Markdown file.")
     parser.add_argument('start_url', help="The starting URL for the crawl. (e.g., 'https://deepwiki.com/oxford-pharmacoepi/RealWorldEvidenceSummerSchool2025/')")
-    parser.add_argument('-o', '--output', dest='output_file', default='output.md', 
-                        help="The name of the output Markdown file. Defaults to 'output.md'.")
-    
+    parser.add_argument('-o', '--output-dir', dest='output_dir', default='output',
+                        help="The directory to save Markdown files. Defaults to 'output'.")
+
     args = parser.parse_args()
-    
-    crawl_and_convert_to_markdown(args.start_url, args.output_file)
+
+    crawl_and_convert_to_markdown(args.start_url, args.output_dir)
 
 # Run the main function when the script is executed from the command line
 if __name__ == "__main__":
