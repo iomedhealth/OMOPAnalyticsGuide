@@ -48,4 +48,4 @@ The analytical approach is descriptive. The core calculations are:
 
 ## How to Implement This Study
 
-*Code examples and step-by-step instructions will be added here.*
+{% include rmd_output/population_level_epidemiology.md %}

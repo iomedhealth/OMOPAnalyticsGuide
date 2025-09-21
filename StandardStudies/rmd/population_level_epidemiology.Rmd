@@ -1,0 +1,93 @@
+---
+knit: |
+  (function(inputFile, encoding) {
+    # Render the document to markdown
+    rmarkdown::render(
+      inputFile,
+      encoding = encoding,
+      output_format = rmarkdown::github_document(html_preview = FALSE),
+      output_file = file.path('../../_includes/rmd_output',
+      paste0(tools::file_path_sans_ext(basename(inputFile)), '.md'))
+    )
+  })
+---
+
+This tutorial provides a step-by-step guide to conducting a population-level epidemiology study using the OHDSI R packages. For those accustomed to the world of SAS and SPSS, this will serve as a bridge, translating familiar clinical study concepts into the OHDSI ecosystem.
+
+We will treat the [Population-Level Epidemiology Guide](/OMOPAnalyticsGuide/docs/data_analysis/standard_studies/population_level_epidemiology) as our **Clinical Study Protocol**. This R Markdown document is the **Statistical Analysis Plan (SAP)**, executing the protocol's requirements in code.
+
+Our workflow will follow a simple, powerful pattern common across OHDSI packages: **`summarise -> table/plot`**.
+
+## Step 1: Load Libraries & Connect to the Database
+
+First, we load the necessary libraries. `CDMConnector` is our equivalent of a SAS `LIBNAME` engine, creating a live connection to the database. `IncidencePrevalence` is our analytical engine (like a SAS `PROC`), and `visOmopResults` is our reporting tool for generating tables and graphs.
+
+```{r}
+knitr::opts_knit$set(upload.fun = function(x) sub("^\\.\\./\\.\\./", "/", x))
+knitr::opts_chunk$set(  
+  fig.path = "../../assets/images/rmd_output/"  
+)
+```
+
+For this tutorials, we will use `mockIncidencePrevalence()` to create a self-contained, reproducible mock database (`cdm`) object.
+
+```{r setup}
+# Load necessary libraries from the renv library
+library(CDMConnector)
+library(IncidencePrevalence)
+library(visOmopResults)
+```
+
+```{r create_mock_cdm}
+# Create a mock database connection with sample data
+cdm <- mockIncidencePrevalence(sampleSize = 50000)
+```
+
+## Step 2: Define the Study Population (The Denominator)
+
+As per our protocol, the study requires a defined source population over a specific time period. We will use `generateDenominatorCohortSet()` to create our analysis population, representing all individuals "at-risk" during the study period from 2008 to 2012.
+
+```{r define_denominator}
+# Define the denominator cohort for the study period
+cdm <- generateDenominatorCohortSet(
+  cdm = cdm,
+  name = "denominator",
+  cohortDateRange = as.Date(c("2008-01-01", "2012-01-01"))
+)
+```
+
+## Step 3: Calculate Incidence & Prevalence (The `summarise` Step)
+
+This step is the core of our analysis, equivalent to running a `PROC` in SAS. We will use the `IncidencePrevalence` package to "summarise" the data by calculating incidence and prevalence rates.
+
+Our protocol requires stratifying by time, so we will set `interval = "years"`. We also use the `outcomeWashout` parameter to ensure we are only counting *new* cases for our incidence calculation, a key requirement of the protocol.
+
+### 3.1: Estimate Incidence
+
+```{r estimate_incidence, echo=TRUE, message=FALSE, warning=FALSE}
+# Calculate incidence rates, stratified by year
+inc <- estimateIncidence(
+  cdm = cdm,
+  denominatorTable = "denominator",
+  outcomeTable = "outcome",
+  interval = "years",
+  outcomeWashout = Inf, # Require no prior history of the outcome
+  repeatedEvents = FALSE
+)
+# View the summarised results
+plotIncidence(inc, facet = c("denominator_age_group", "denominator_sex"))
+```
+
+### 3.2: Estimate Prevalence
+
+```{r estimate_prevalence, echo=TRUE, message=FALSE, warning=FALSE}
+# Calculate point prevalence, stratified by year
+prev_point <- estimatePointPrevalence(
+  cdm = cdm,
+  denominatorTable = "denominator",
+  outcomeTable = "outcome",
+  interval = "years",
+  timePoint = "start"
+)
+plotPrevalence(prev_point, facet = c("denominator_age_group", "denominator_sex"))
+```
