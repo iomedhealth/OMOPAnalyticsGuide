@@ -14,7 +14,7 @@ The `IncidencePrevalence` R package provides a set of tools to calculate populat
 ### Key Features:
 - **Incidence Rate Calculation**: Estimates incidence rates with support for repeated events, washout periods, and censoring.
 - **Prevalence Estimation**: Calculates both point and period prevalence, with options for full contribution and complete database intervals.
-- **OMOP CDM Integration**: Seamlessly works with the OMOP CDM through integration with `[CDMConnector](https://darwin-eu.github.io/CDMConnector/)` and `[omopgenerics](https://darwin-eu.github.io/omopgenerics/)`.
+- **OMOP CDM Integration**: Seamlessly works with the OMOP CDM through integration with [`CDMConnector`](https://darwin-eu.github.io/CDMConnector/) and [`omopgenerics`](https://darwin-eu.github.io/omopgenerics/).
 - **Standardized Outputs**: Produces results in the `summarised_result` format, ensuring compatibility with other OHDSI tools.
 - **Visualization**: Includes built-in functions for plotting incidence and prevalence results.
 

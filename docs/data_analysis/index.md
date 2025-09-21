@@ -10,24 +10,19 @@ has_children: true
 # Executing an Observational Study
 {: .no_toc }
 
-Observational studies using real-world data (RWD) are essential for
-understanding disease, treatment effectiveness, and patient outcomes in a
-real-world setting. The OMOP Common Data Model (CDM) provides the global
-standard for structuring this data, enabling transparent and reproducible
-research across different healthcare databases.
+Observational studies using real-world data (RWD) are essential for understanding disease, treatment effectiveness, and patient outcomes. The OMOP Common Data Model (CDM) provides a global standard for structuring this data, enabling transparent and reproducible research.
 
-To harness the power of the OMOP CDM, a suite of specialized R packages has
-been developed. These packages provide a robust framework for every stage of an
-observational study, from defining patient populations to generating final
-results. Using this standardized toolkit ensures that research is not only
-efficient but also adheres to the highest scientific standards, as promoted by
-regulatory bodies like the European Medicines Agency (EMA) through initiatives
-such as DARWIN EU.
+To harness the power of the OMOP CDM, a suite of specialized R packages has been developed. These packages provide a robust, modular framework for every stage of a study. Using this standardized toolkit ensures that research is not only efficient but also adheres to the highest scientific standards, as promoted by regulatory bodies like the European Medicines Agency (EMA) through initiatives such as DARWIN EU.
 
-This guide provides a practical, step-by-step framework for executing an
-observational study using these tools. For a conceptual overview of how to map
-common research questions to these packages, please see [Core Libraries for Observational Data Analysis](./core_libraries.md).
+This section is divided into three key guides to help you navigate this ecosystem:
 
+1.  **The Conceptual Guide (The "Why"):** If you are new to the OMOP CDM or want to understand the core principles of how clinical ideas are translated into computable definitions, start here. This guide is for researchers, epidemiologists, and anyone who wants to understand the methodology before diving into the code.
+    -   Start with the: [Introductory Guide to Observational Research](./intro_to_observational_research)
+
+2.  **The Practical Guide (The "How"):** If you are ready to start writing code and want a step-by-step walkthrough of a typical analysis workflow, from connecting to the database to generating final results, this guide is for you. It provides the practical sequence of operations for executing a study.
+    -   Follow the guide to: [Performing an Analysis](./performing_analysis)
+
+3.  **The Tool Reference (The "What"):** Below is a categorized list of the core R packages you will use. Think of this as a reference library of the tools available to you. Each guide above will show you how and when to use these packages in a real study.
 
 ## Package Categories and Purposes
 
@@ -60,6 +55,7 @@ characterization analyses on the generated cohorts.
 | [**`IncidencePrevalence`**](https://darwin-eu.github.io/IncidencePrevalence/) | Calculates the incidence and prevalence of health outcomes within a study population. |
 | [**`DrugUtilisation`**](https://darwin-eu.github.io/DrugUtilisation/) | Analyzes patterns of drug use, such as treatment pathways and adherence. |
 | [**`CohortSurvival`**](https://darwin-eu-dev.github.io/CohortSurvival/) | Performs time-to-event (survival) analysis to estimate the risk of outcomes over time. |
+| [**`PatientProfiles`**](https://darwin-eu.github.io/PatientProfiles/) | Adds detailed demographic and clinical features to patient cohorts for in-depth characterization. |
 | [**`PatientProfiles`**](https://darwin-eu.github.io/PatientProfiles/) | Adds detailed demographic and clinical features to patient cohorts for in-depth characterization. |
 | [**`OmopSketch`**](https://ohdsi.github.io/OmopSketch/) | Provides a quick summary or "sketch" of the data in an OMOP CDM instance. |
 
