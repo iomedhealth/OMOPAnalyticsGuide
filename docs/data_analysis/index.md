@@ -22,9 +22,15 @@ This section is divided into three key guides to help you navigate this ecosyste
 2.  **The Practical Guide (The "How"):** If you are ready to start writing code and want a step-by-step walkthrough of a typical analysis workflow, from connecting to the database to generating final results, this guide is for you. It provides the practical sequence of operations for executing a study.
     -   Follow the guide to: [Performing an Analysis](./performing_analysis)
 
-3.  **The Tool Reference (The "What"):** Below is a categorized list of the core R packages you will use. Think of this as a reference library of the tools available to you. Each guide above will show you how and when to use these packages in a real study.
+3.  **The Tool Reference (The "What"):** This guide provides a comprehensive overview of the available R packages, categorized by their purpose. It explains what each tool does and is the perfect place to go when you know the type of analysis you need (e.g., "survival analysis") and want to find the right package for the job.
+    -   Explore the: [Package Reference](./package_reference)
+
+4.  **The Study Templates (The "How To"):** This section contains complete, executable examples of different types of observational studies (e.g., a cohort characterization, an incidence/prevalence study). These templates serve as a practical starting point and can be adapted for your own research questions.
+    -   Adapt from the: [Catalogue of Standard Studies](./standard_studies)
 
 ## Package Categories and Purposes
+
+Below is a categorized list of the core R packages you will use.
 
 ### Foundation Layer
 These are the core packages that establish the connection to the database and
