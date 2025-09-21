@@ -8,8 +8,15 @@ favicon_ico: "/assets/images/favicon.ico"
 back_to_top: true
 back_to_top_text: "Back to top"
 
+search:
+  heading_level: 6
+  previews: 4
+  preview_words_before: 4
+  focus_shortcut_key: 'k'
+
 url: https://docs.iomed.health
 footer_content: 'Copyright &copy; 2017-2025 IOMED Medical Solutions SL.'
+enable_copy_code_button: true
 aux_links:
   Main Site: https://iomed.health
 
@@ -17,5 +24,4 @@ mermaid:
   # Version of mermaid library
   # Pick an available version from https://cdn.jsdelivr.net/npm/mermaid/
   version: "11.12.0"
-
 

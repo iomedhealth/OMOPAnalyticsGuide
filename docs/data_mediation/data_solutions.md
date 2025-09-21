@@ -21,7 +21,7 @@ distinct data solutions, each designed for a specific need and use case.
 
 ### Patient Count (PC)
 
-Patient Count is a simple but powerful feasibility tool. It allows a Data User
+Patient Count is a simple but powerful feasibility tool, directly analogous to running a **preliminary query against a clinical trial database to determine the number of eligible patients** for a potential study or a sub-analysis. It allows a Data User
 to input specific inclusion and exclusion criteria (e.g., "female patients over
 50, diagnosed with type 2 diabetes, prescribed metformin, with no history of
 heart failure") and receive an aggregated number of patients who match these
@@ -40,7 +40,7 @@ This solution provides complex, aggregated data analysis and characterization
 of a patient cohort across multiple hospitals. It allows users to understand
 population-level statistics, trends, and patterns without ever accessing
 individual patient records. The output is typically in the form of summary
-tables, charts, and statistical analyses.
+tables, charts, and statistical analyses, similar to the **full set of descriptive statistics and characterization tables** generated for a study, going beyond just a single baseline demographics table.
 
 The analysis can be executed in one of two secure ways:
 
@@ -51,8 +51,9 @@ The analysis can be executed in one of two secure ways:
   provides access to perform the analysis only in the individuals that comply
   with the selection criterias.
 * **Via an R package:** Alternatively, the analysis can be run by executing a
-  standardized R package. This package follows the typical OHDSI (Observational
-  Health Data Sciences and Informatics) analysis pipeline, running the
+  standardized and validated OHDSI (Observational
+  Health Data Sciences and Informatics) analysis R package. This package follows a well-defined
+  analysis pipeline, running the
   computation locally within the hospital's secure environment and returning
   only the final, aggregated results to the user.
 
@@ -69,7 +70,7 @@ The main result of this solution:
 ### Patient-Level Data (PLD)
 
 This is one of the most in-depth solutions, providing a fully anonymized,
-detailed, patient-specific dataset for a defined cohort. The data is exported
+detailed, patient-specific dataset for a defined cohort. The most accurate analogy here is to receiving the **final, cleaned SDTM datasets** from a clinical trial. Like SDTM, the OMOP CDM is a standardized data model that organizes the source information into a consistent structure, but it is not yet an analysis-specific dataset. Further transformation is typically required to create analysis-ready variables. The data is exported
 in the standardized OMOP format, making it ready for complex analysis,
 statistical modeling, and evidence generation. The hospital retains full
 control, approving the request before any data is exported.
@@ -87,9 +88,9 @@ control, approving the request before any data is exported.
 
 The Patient Finder solution is specifically designed to accelerate clinical
 trial recruitment. Data Users define the protocol criteria, and the system
-identifies a list of potentially eligible patients within a hospital's
-database. Crucially, **this list of patients is never shared with the data
-user**. Instead, it is made available only to the hospital's principal
+identifies **a list of potentially eligible patients** within a hospital's
+database. Crucially, `this list of patients is never shared with the data
+user`. Instead, it is made available only to the hospital's principal
 investigator or clinical staff, who can then review the patients' charts and
 contact them about participating in the trial.
 

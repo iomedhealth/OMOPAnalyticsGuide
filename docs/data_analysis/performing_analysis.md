@@ -3,43 +3,47 @@
 layout: default
 title: Performing an Analysis
 parent: Data Analysis
-nav_order: 3
+nav_order: 2
 
 ---
 
 # Performing an Analysis
 {: .no_toc}
 
-The following diagram provides a high-level overview of the sequential phases involved in a typical observational study.
+This guide walks you through the process of executing a study in the OMOP/R ecosystem. Think of your R script as a dynamic, executable **Statistical Analysis Plan (SAP)**, where your cohort definitions, variable derivations, and analyses are all documented and run in a single, reproducible workflow.
+
+The following diagram provides a high-level overview of the sequential phases involved in this workflow.
 
 ```mermaid
-graph TD
-    subgraph "Phase 1: Setup"
-        A[Environment & Database Setup]
+flowchart LR
+    subgraph "Setup"
+        A[Environment &
+        Database Setup]
+
     end
 
-    subgraph "Phase 2: Cohort Generation"
-        A --> C[Codelist & Cohort Generation]
+    subgraph "Cohort Generation"
+        B["Codelist & Cohort Generation
+        Attrition Tracking
+        Phenotype Diagnostics
+        "]
+
     end
 
-    subgraph "Phase 3: Cohort Refinement"
-        C --> E[Attrition Tracking]
+    subgraph "Analysis"
+        C["Characterization
+        & Analysis"]
+
     end
 
-    subgraph "Phase 4: Analysis"
-        E --> F[Baseline Characteristics]
-        F --> G[Specialized Epidemiological Analyses]
+    subgraph "Results"
+        D["Generate
+        Tables, Charts
+        & Export Results"]
+
     end
 
-    subgraph "Phase 5: Results"
-        G --> H[Generate Tables & Figures]
-        H --> I[Export Results]
-    end
-
-    subgraph "Phase 6: Validation"
-        C --> J[Phenotype Diagnostics]
-        J --> I
-    end
+    A --> B --> C --> D
 ```
 
 ## Phase 1: Study Setup and Configuration
@@ -47,10 +51,11 @@ graph TD
 The initial phase involves setting up the R environment and establishing a connection to the database.
 
 ### Environment Setup
-- **Dependency Management**: It is best practice to use `renv` to ensure a reproducible environment with consistent package versions. This creates a `renv.lock` file that captures the state of your project's dependencies.
+- **Dependency Management**: It is best practice to use `renv` to ensure a reproducible environment. `renv` creates a lockfile that captures the exact versions of all R packages used in your project. This is like ensuring every statistician on your team is using the exact same version of SAS and its modules, preventing "it works on my machine" problems.
 
 ### Database Connection
-- **Connection**: The first step in your R script is to establish a live connection to the OMOP CDM database using the [`CDMConnector`](https://darwin-eu.github.io/CDMConnector/) package. This creates a `cdm` object that points to the database tables without loading them into memory. For this example, we'll use a local DuckDB database.
+- **Connection**: The first step in your R script is to establish a live connection to the OMOP CDM database using the [`CDMConnector`](https://darwin-eu.github.io/CDMConnector/) package. This creates a `cdm` object that points to the database tables without loading them into memory.
+- **Schemas**: When connecting, you will define a `cdm_schema` and a `write_schema`. Think of `cdm_schema` as your input library (like a `libname` for your SDTM data) and `write_schema` as your output library (for your analysis datasets and results).
 
 ```r
 library(CDMConnector)
@@ -98,9 +103,9 @@ library(CodelistGeneratoror)
 library(CohortConstructor)
 
 # 1. Get codelists for the disease and treatments
-hcm_codes <- get_codelist_from_concept_set(4247, cdm)
-beta_blockers_codes <- get_codelist_from_concept_set(4886, cdm)
-ccb_non_dhp_codes <- get_codelist_from_concept_set(4887, cdm)
+hcm_codes <- getCodelistFromConceptSet(4247, cdm)
+beta_blockers_codes <- getCodelistFromConceptSet(4886, cdm)
+ccb_non_dhp_codes <- getCodelistFromConceptSet(4887, cdm)
 
 # 2. Combine treatment codes into a single "first-line therapy" codelist
 first_line_therapy_codes <- merge_codelists(
@@ -120,7 +125,7 @@ cdm$hcm_first_line_treated <- cdm$first_line_therapy |>
   )
 ```
 
-## Phase 3: Data Quality and Attrition
+## Phase 3: Cohort Attrition Tracking
 
 After instantiating your cohort, it's crucial to understand how many patients were included or excluded at each step.
 
@@ -133,12 +138,18 @@ cdm$hcm_first_line_treated |>
 ```
 This plot helps ensure the logic of your cohort definition is working as expected and provides transparency for your final study report.
 
-## Phase 4: Analysis Pipeline
+## Phase 4: Phenotype and Cohort Validation
+
+Before proceeding to analysis, it is essential to validate that your cohort definition has captured the correct patient population. The [`PhenotypeR`](https://ohdsi.github.io/PhenotypeR/) package provides tools to "diagnose" your cohort, allowing you to review the clinical characteristics of the selected patients to ensure they align with the clinical understanding of the phenotype. This is a powerful quality step that goes beyond simple inclusion/exclusion counts.
+
+- **[`PhenotypeR`](https://ohdsi.github.io/PhenotypeR/)**: This package provides a comprehensive suite of diagnostics to evaluate the quality of your clinical phenotype definitions. This helps ensure that your study cohorts accurately represent the patient populations you intend to study.
+
+## Phase 5: Analysis Pipeline
 
 This is the core of the study, where you characterize the study population and perform your main analyses.
 
 ### Baseline Characteristics
-A critical first step is to generate the baseline characteristics of your study population. The [`CohortCharacteristics`](https://darwin-eu.github.io/CohortCharacteristics/) package is designed for this purpose.
+A critical first step is to generate the baseline characteristics of your study population. The [`CohortCharacteristics`](https://darwin-eu.github.io/CohortCharacteristics/) package is designed for this purpose. Functions like `add_age()` and `add_sex()` are standardized helpers from the `PatientProfiles` package that add common demographic variables to your cohort table. By default, age is calculated at the `cohort_start_date`, but this can be configured.
 
 - **Demographics**: You can easily compute age and sex for your cohort.
 - **Comorbidities and Clinical Events**: You can assess the prevalence of various conditions or events in your cohort's history.
@@ -162,7 +173,7 @@ Depending on your study's objectives, you can now run various specialized analys
 - **[`DrugUtilisation`](https://darwin-eu.github.io/DrugUtilisation/)**: To study patterns of medication use.
 - **[`CohortSurvival`](https://darwin-eu-dev.github.io/CohortSurvival/)**: To perform survival analysis.
 
-## Phase 5: Results Generation
+## Phase 6: Results Generation
 
 The final phase involves generating and exporting the results in a clear and shareable format.
 
@@ -181,9 +192,3 @@ table_characteristics(results)
 ```
 
 - **Export Results**: You can export all results to structured formats like CSV for transparency, meta-analysis, or use in other programs.
-
-## Phase 6: Diagnostics and Validation
-
-Before and after your analysis, it is crucial to validate your cohort definitions.
-
-- **[`PhenotypeR`](https://ohdsi.github.io/PhenotypeR/)**: The [`PhenotypeR`](https://ohdsi.github.io/PhenotypeR/) package provides a comprehensive suite of diagnostics to evaluate the quality of your clinical phenotype definitions. This helps ensure that your study cohorts accurately represent the patient populations you intend to study.

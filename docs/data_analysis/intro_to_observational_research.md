@@ -3,7 +3,7 @@
 layout: default
 title: Introductory Guide
 parent: Data Analysis
-nav_order: 2
+nav_order: 1
 
 ---
 
@@ -59,22 +59,44 @@ This creates a major barrier to analysis. The OMOP solution is to map all of the
 
 Think of `concept_ids` as a universal translator for clinical terms. While the source "languages" (SNOMED, ICD-10) are different, OMOP provides a single, standard identifier for every diagnosis, drug, procedure, and lab test. This meta-ontology is the engine that makes large-scale, standardized analysis possible.
 
+### The OMOP Data Model: Clinical "Domains"
+
+Standardizing the terminology is only half the story. OMOP also organizes the data into a logical, consistent structure of tables. This is very similar to the **domain model in CDISC SDTM**, where different types of data are stored in specific datasets (e.g., Demographics in `DM`, Adverse Events in `AE`, Labs in `LB`).
+
+In OMOP, these "domains" are represented by a set of standardized tables. While there are many tables in the full model, the most important ones for clinical analysis are:
+
+*   **`PERSON`**: Contains the core demographic information for each patient. (Analogous to `DM` in SDTM).
+*   **`OBSERVATION_PERIOD`**: Defines the time periods for which a patient has observable data in the source. This is a critical table for defining study windows.
+*   **`CONDITION_OCCURRENCE`**: Records all patient diagnoses, signs, and symptoms. (Analogous to a combination of `MH` and `AE` in SDTM).
+*   **`DRUG_EXPOSURE`**: Records all exposures to medications. (Analogous to `CM` and `EX` in SDTM).
+*   **`MEASUREMENT`**: Contains all lab results, vital signs, and other quantitative measurements. (Analogous to `LB` and `VS` in SDTM).
+*   **`PROCEDURE_OCCURRENCE`**: Records all medical procedures performed on a patient. (Analogous to `PR` in SDTM).
+
+By combining a standardized terminology (`concept_id`s) with a standardized structure (the table model), the OMOP CDM ensures that you can find the same type of data in the same place, coded in the same way, no matter which hospital or country the data comes from.
 
 
-## 3. The "Where" - Your study in the IOMED Data Space
 
-Now, let's ground these abstract concepts in your specific, practical reality.
+## 3. The "Where" - Your Study in the IOMED Data Space Platform
 
-The IOMED Data Space provides you with a single, ready-to-analyze **`duckdb` file**. This is a self-contained, high-performance database file that requires no complex setup. Inside this file, you will find:
+Now, let's ground these abstract concepts in your specific, practical reality. The IOMED Data Space provides a secure, compliant environment for you to conduct your research. Depending on the Data Solution you have requested for your study, your interaction with the data will take one of two primary forms:
 
-1.  **A complete OMOP CDM database:** All the patient data has been cleaned, standardized, and structured according to the OMOP model.
-2.  **The cohort of patients that fulfill selection criterias:** This is the starting population for your study.
+1.  **Federated Analysis (for Aggregated Patient Characterisation):** For many studies, you will not receive patient-level data directly. Instead, you will be given access to run a pre-defined, validated R analysis script against the data within the secure environment of each data holder. The script executes locally at each site, and only the final, aggregated results (e.g., summary statistics, counts) are returned to you. This is a high-security model that minimizes data movement.
+2.  **Patient-Level Data Analysis:** For studies requiring more complex modeling, you will receive a single, ready-to-analyze **`duckdb` file**. This is a self-contained, high-performance database file containing the fully anonymized, patient-level data for your specific cohort.
 
-Crucially, you have already done the hard work of defining key clinical variables as **`concept_sets`**.
+In both scenarios, the underlying data has been cleaned and standardized to the OMOP CDM, and you will work with **`concept_sets`** to define your clinical variables.
 
 A **`concept_set`** is simply a pre-packaged, clinically validated list of all the `concept_id`s that represent a single clinical idea. For example, a `concept_set` for "Anticoagulants" would contain the standard `concept_id`s for warfarin, apixaban, rivaroxaban, and all other relevant medications.
 
 This is a critical accelerator for your research. You don't have to become an expert in OMOP terminologies; you can start immediately with clinically meaningful, pre-built variable definitions.
+
+### The Concept Set Lifecycle: From Idea to Reusable Asset
+
+You might be wondering how these `concept_sets` are created and how you can trust them. They are not created in isolation; they go through a rigorous, collaborative lifecycle designed to ensure they are clinically valid, transparent, and reusable.
+
+1.  **Creation in the IOMED Data Space Platform:** A researcher, often a clinician or an epidemiologist, uses tools within the platform to build a new `concept_set`. This involves searching the OMOP vocabulary for relevant terms (e.g., searching for all variations of "Type 2 Diabetes Mellitus," including synonyms and related codes) and compiling them into a list.
+2.  **Clinical Review and Validation:** The proposed `concept_set` is then reviewed by a team of clinical experts. They assess the list for completeness and accuracy, ensuring that it correctly captures the intended clinical idea without including irrelevant terms. This is a formal review process, similar to a medical monitor reviewing a list of adverse events of special interest in a clinical trial.
+3.  **Approval and Publication:** Once the `concept_set` is approved, it is published to a shared library within the IOMED Data Space Platform. Each `concept_set` is given a unique ID and is version-controlled, meaning any changes are tracked over time.
+4.  **Discovery and Reuse:** As a researcher, you can browse this library of validated `concept_sets` by name, clinical domain, or keyword. This creates a living library of clinical knowledge, ensuring that the definition for a complex idea like "immunosuppression" is consistent and validated across all studies on the platform. The `getCodelistFromConceptSet(id = 123, ...)` function in the R script is how you programmatically access these published assets.
 
 
 
@@ -117,7 +139,7 @@ cdmSchema <- "main"
 cdm <- cdmFromCon(con, cdm_schema = cdmSchema, write_schema = "main")
 
 # --- Step 3: Load a Standardized Variable Definition ---
-# This is the core of the process. We are loading a pre-defined concept set for "Type 2 Diabetes".
+# This is the core of the process. We are loading a pre-defined and clinically validated concept set for "Type 2 Diabetes" from the platform's library.
 # This function retrieves the list of all concept_ids that define our clinical idea.
 diabetes_concept_set <- getCodelistFromConceptSet(
   id = 123, # This is an example ID for the concept set
