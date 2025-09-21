@@ -9,175 +9,200 @@ nav_order: 8
 
 ## Overview
 
-The [DrugUtilisation](https://darwin-eu.github.io/DrugUtilisation/) package is designed to summarize patient-level drug utilization cohorts using data mapped to the Observational Medical Outcomes Partnership (OMOP) Common Data Model. The package supports the creation of both new user and prevalent user cohorts, enabling comprehensive characterization of drug use patterns, indications, and treatment outcomes.
+The `DrugUtilisation` package is a standardized toolset designed to conduct such studies using data mapped to the OMOP Common Data Model.
 
-**Core Objectives:**
-- Generate and refine drug utilization cohorts from OMOP CDM data
-- Calculate standardized drug utilization metrics (exposures, eras, doses, quantities)
-- Analyze treatment patterns, persistence, and discontinuation
-- Identify medical indications for drug use
-- Provide standardized output formats for reproducible research
+The package provides the tools to answer critical questions about how medicines are used in the real world:
+- Who is being prescribed a certain drug?
+- For what indications is it being used?
+- How long do patients stay on treatment?
+- What are the patterns of switching to other therapies?
 
-## Installation
+This package offers a structured, reproducible workflow. It begins by creating
+analysis-ready "drug user cohorts" and then applies a series of standardized
+functions to characterize them, similar to a series of SAS macros designed for
+a specific reporting pipeline.
 
-Install the DrugUtilisation package from CRAN or the development version from GitHub:
+The package is designed around a logical, sequential workflow:
+1.  **Generate Drug Cohorts**: Create cohorts of patients based on their exposure to specific drugs, using ingredients, ATC codes, or custom concept sets.
+2.  **Refine Cohorts**: Apply inclusion and exclusion criteria to define a precise study population (e.g., new users only, specific observation windows).
+3.  **Summarise & Analyse**: Execute a range of standardized analyses to describe drug use patterns, indications, treatment persistence, and more.
 
-```r
-# From CRAN (stable version)
-install.packages("DrugUtilisation")
+## Core Concepts
 
-# From GitHub (development version)
-# install.packages("devtools")
-devtools::install_github("darwin-eu/DrugUtilisation")
+### The `gapEra` Parameter
+
+A fundamental concept in drug utilisation studies is consolidating multiple drug exposures into a single, continuous "episode" or "era" of treatment. The `gapEra` parameter controls this by defining the maximum number of days allowed between the end of one exposure record and the start of the next for them to be considered part of the same treatment episode.
+
+Consider an individual with four prescription records for the same drug:
+
+```
+Record 1: Day 1 -> Day 20
+Record 2: Day 15 -> Day 30
+Record 3: Day 31 -> Day 38
+Record 4: Day 45 -> Day 55
 ```
 
-Load the package along with required dependencies:
+-   If `gapEra = 0`, records must overlap to be joined. This would result in **3 distinct episodes**.
+-   If `gapEra` is between 1 and 6, the small gap between records 3 and 4 is bridged. This results in **2 episodes**.
+-   If `gapEra >= 7`, the larger gap between the first two joined records and the last two is also bridged, resulting in **1 single, continuous episode**.
+
+Choosing an appropriate `gapEra` is a critical study design decision that should be clinically informed.
+
+### The Analysis Workflow
+
+The package follows a clear, sequential process. You start with a broad cohort of drug users and progressively refine it before performing the final analysis.
+
+```mermaid
+graph LR
+    subgraph "1. Cohort Generation"
+        A[Drug Concepts<br/>Ingredients, ATC] --> B(generateCohortSet);
+        C[gapEra] --> B;
+    end
+
+    subgraph "2. Cohort Refinement"
+        D[requirePriorDrugWashout<br/>requireIsFirstDrugEntry<br/>requireObservationBeforeDrug<br/>requireDrugInDateRange];
+    end
+
+    subgraph "3. Analysis"
+        G[summariseDrugUtilisation]
+        H[summariseIndication]
+        I[summariseProportionOfPatientsCovered]
+        J[summariseDrugRestart]
+    end
+
+    B --> D;
+    D --> G;
+    D --> H;
+    D --> I;
+    D --> J;
+
+```
+
+**Crucially, the order of the refinement steps matters.** Applying a date range filter *before* identifying the first drug entry will yield a different result than the other way around. The recommended order is:
+1.  **Washout / First Use**: `requirePriorDrugWashout()` or `requireIsFirstDrugEntry()`.
+2.  **Prior Observation**: `requireObservationBeforeDrug()`.
+3.  **Date Range**: `requireDrugInDateRange()`.
+
+### Understanding the Refinement Steps
+
+- **Washout Period (`requirePriorDrugWashout`)**: This is how we identify "new users" of a drug. A washout period is a specified duration (e.g., 365 days) before the start of a drug exposure during which the patient must *not* have had any prior exposure to the same drug. This helps ensure we are studying incident (new) treatment episodes, not prevalent (ongoing) ones. It's crucial for avoiding biases in studies looking at the effects of starting a new therapy.
+
+- **Prior Observation (`requireObservationBeforeDrug`)**: This ensures that we have enough medical history for a patient *before* they start the drug. A requirement of 365 days of prior observation means the patient has been enrolled in the database for at least a year before their first prescription. This is vital for assessing baseline characteristics and comorbidities and ensuring data completeness.
+
+- **Date Range (`requireDrugInDateRange`)**: This restricts the study to a specific calendar period (e.g., January 1, 2015, to December 31, 2020). This is important for defining a study period that might correspond to a specific version of a clinical guideline, the availability of a drug on the market, or a particular public health event.
+
+## Getting Started: A Complete Example
+
+This example demonstrates a typical workflow, from creating a cohort to analysing its characteristics.
+
+### 1. Setup and Cohort Generation
+
+First, we create a mock CDM reference and generate a cohort of acetaminophen users, collapsing any records separated by 30 days or less.
 
 ```r
 library(DrugUtilisation)
 library(CDMConnector)
-library(omopgenerics)
 library(dplyr)
-```
 
-## Getting Started
-
-The fastest way to explore DrugUtilisation functionality is using the built-in mock data generator. The `mockDrugUtilisation()` function creates a complete OMOP CDM environment with synthetic drug exposure data.
-
-Here is a complete example demonstrating the typical DrugUtilisation workflow:
-
-### 1. Create CDM Reference
-```r
-# Start with mock data for learning
+# Create a mock CDM for demonstration
 cdm <- mockDrugUtilisation(numberIndividuals = 100, seed = 1)
-```
 
-### 2. Generate Drug Cohort
-```r
-# Create acetaminophen users cohort
+# Generate a cohort of acetaminophen users with a 30-day gap era
 cdm <- generateIngredientCohortSet(
-  cdm = cm,
+  cdm = cdm,
   name = "acetaminophen_users",
   ingredient = "acetaminophen",
-  gapEra = 7
+  gapEra = 30
 )
 ```
 
-### 3. Apply Inclusion Criteria
+### 2. Refine the Cohort
+
+Next, we apply inclusion criteria to define our study population as **new users** with at least 365 days of prior observation.
+
 ```r
-# Refine cohort with inclusion criteria
-cdm$acetaminophen_users <- cdm$acetaminophen_users |>
-  requireIsFirstDrugEntry() |>
-  requireObservationBeforeDrug(days = 30)
-```
-
-### 4. Perform Analysis
-```r
-# Analyze drug utilization patterns
-drug_results <- cdm$acetaminophen_users |>
-  summariseDrugUtilisation(
-    ingredientConceptId = 1125315,
-    gapEra = 7
-  )
-
-# Analyze indications
-indication_results <- cdm$acetaminophen_users |>
-  summariseIndication(
-    indicationCohortName = "condition_cohorts",
-    indicationWindow = list(c(-30, 0))
-  )
-```
-
-### 5. Generate Output
-```r
-# Combine results and suppress small counts
-final_results <- bind(drug_results, indication_results) |>
-  suppress(minCellCount = 5)
-
-# Create formatted table
-tableDrugUtilisation(drug_results)
-
-# Create visualization  
-plotDrugUtilisation(drug_results)
-```
-
-## Core Concepts
-
-The DrugUtilisation package is built around the **Observational Medical Outcomes Partnership (OMOP) Common Data Model**. All functionality assumes data is structured according to OMOP CDM specifications.
-
-The core analytical paradigm is **cohort-centric**: all drug utilization analysis begins with defining patient cohorts that represent specific study populations. Cohorts are then refined through inclusion criteria and analyzed for drug utilization patterns.
-
-```mermaid
-graph LR
-    subgraph "Cohort Generation"
-        CONCEPTSET["conceptSet<br/>Drug definitions"]
-        GAPERA["gapEra<br/>Episode consolidation"]
-        GEN_FUNC["generateDrugUtilisationCohortSet<br/>generateIngredientCohortSet<br/>generateAtcCohortSet"]
-    end
-    
-    subgraph "Cohort Refinement"
-        REQ_WASH["requirePriorDrugWashout"]
-        REQ_FIRST["requireIsFirstDrugEntry"] 
-        REQ_OBS["requireObservationBeforeDrug"]
-        REQ_DATE["requireDrugInDateRange"]
-    end
-    
-    subgraph "Analysis Layer"
-        ADD_FUNCS["addDrugUtilisation<br/>addIndication<br/>addTreatment"]
-        SUM_FUNCS["summariseDrugUtilisation<br/>summariseIndication<br/>summariseTreatment"]
-    end
-    
-    CONCEPTSET --> GEN_FUNC
-    GAPERA --> GEN_FUNC
-    GEN_FUNC --> REQ_WASH
-    REQ_WASH --> REQ_FIRST
-    REQ_FIRST --> REQ_OBS  
-    REQ_OBS --> REQ_DATE
-    REQ_DATE --> ADD_FUNCS
-    ADD_FUNCS --> SUM_FUNCS
-```
-
-## Advanced Usage
-
-### Cohort Management
-
-The package provides functions for generating, refining, and processing patient cohorts based on drug exposure records in the OMOP CDM.
-
-- **`generateIngredientCohortSet`, `generateDrugUtilisationCohortSet`, `generateAtcCohortSet`**: Create drug user cohorts based on ingredients, ATC codes, or custom concept sets.
-- **`requirePriorDrugWashout`, `requireIsFirstDrugEntry`, `requireObservationBeforeDrug`**: Apply inclusion/exclusion criteria and washout periods.
-
-### Drug Utilisation Analysis
-
-This is the core functionality for calculating and summarizing drug utilization metrics.
-
-- **`summariseDrugUtilisation`, `addDrugUtilisation`**: Calculate exposures, eras, doses, quantities, and durations.
-
-### Specialized Analysis
-
-These functions enable investigation of drug indications, treatment patterns, restart behaviors, and patient coverage over time.
-
-- **`summariseIndication`**: Analyze indications for drug use.
-- **`summariseTreatment`**: Analyze treatment patterns and switching.
-- **`summariseDrugRestart`**: Analyze drug switching and restart patterns.
-
-## Examples
-
-### Incident Drug Users
-```r
-cdm$drug_cohort |>
-  requirePriorDrugWashout(days = 365) |>
+# Refine the cohort
+cdm$acetaminophen_users <- cdm$acetaminophen_users %>%
+  requireIsFirstDrugEntry() %>%
   requireObservationBeforeDrug(days = 365)
 ```
 
-### First Treatment Episodes
+### 3. Perform Analyses
+
+Now we can run our desired analyses on the refined cohort.
+
 ```r
-cdm$drug_cohort |>
-  requireIsFirstDrugEntry() |>
-  requireObservationBeforeDrug(days = 30)
+# a) Summarise drug utilisation metrics
+drug_summary <- cdm$acetaminophen_users %>%
+  summariseDrugUtilisation(
+    ingredientConceptId = 1125315 # Concept ID for acetaminophen
+  )
+
+# b) Summarise indications (requires pre-defined indication cohorts)
+# First, create indication cohorts for headache and influenza
+indications <- list(headache = 378253, influenza = 4266367)
+cdm <- generateConceptCohortSet(cdm, name = "indication_cohorts", conceptSet = indications)
+
+# Now, summarise indications within a 30-day window before the drug start date
+indication_summary <- cdm$acetaminophen_users %>%
+  summariseIndication(
+    indicationCohortName = "indication_cohorts",
+    indicationWindow = list(c(-30, 0))
+  )
+
+# c) Summarise treatment persistence over 1 year
+persistence_summary <- cdm$acetaminophen_users %>%
+  summariseProportionOfPatientsCovered(followUpDays = 365)
 ```
 
-### Period-Restricted Analysis
+### 4. View and Report Results
+
+The package provides easy-to-use functions for tabulating and plotting the results.
+
 ```r
-cdm$drug_cohort |>
-  requireDrugInDateRange(dateRange = as.Date(c("2018-01-01", "2022-12-31")))
+# View the drug utilisation summary table
+tableDrugUtilisation(drug_summary)
+
+# Plot the indication summary
+plotIndication(indication_summary)
+
+# Plot treatment persistence
+plotProportionOfPatientsCovered(persistence_summary)
 ```
+
+## Key Analyses in Detail
+
+### Drug Utilisation (`summariseDrugUtilisation`)
+This is the workhorse function for characterising drug use. It calculates a wide range of metrics, including:
+-   Number of exposures and eras
+-   Duration of exposure (days exposed)
+-   Quantity and dose (initial and cumulative)
+
+### Indications (`summariseIndication`)
+This function helps identify *why* a drug was prescribed by looking for diagnoses (as cohorts) in a specified time window around the drug initiation date. It correctly handles mutually exclusive indications.
+
+### Treatment Persistence (`summariseProportionOfPatientsCovered`)
+This analysis measures what proportion of the initial cohort is still on treatment over time. It provides a simple, powerful way to visualize treatment adherence and discontinuation patterns.
+
+### Treatment Switching & Restarting (`summariseDrugRestart`)
+For cohorts that discontinue treatment, this function allows you to analyse what happens next. You can assess:
+-   The proportion of patients who **restart** the same medication.
+-   The proportion who **switch** to a different, pre-defined therapy.
+-   The proportion who remain untreated within specified follow-up windows.
+
+## API Reference
+
+A summary of the most important functions in the typical workflow.
+
+| Category | Function | Purpose |
+| --- | --- | --- |
+| **Cohort Generation** | `generateIngredientCohortSet` | Creates drug user cohorts based on ingredient concepts. |
+| | `generateAtcCohortSet` | Creates cohorts based on ATC classification. |
+| **Cohort Refinement** | `requireIsFirstDrugEntry` | Restricts to the first drug episode per person. |
+| | `requirePriorDrugWashout` | Enforces a washout period of non-exposure. |
+| | `requireObservationBeforeDrug` | Requires a minimum duration of prior observation time. |
+| **Analysis** | `summariseDrugUtilisation` | Calculates key metrics like dose, quantity, and duration. |
+| | `summariseIndication` | Identifies and counts indications for drug use. |
+| | `summariseProportionOfPatientsCovered` | Analyzes treatment persistence over time. |
+| | `summariseDrugRestart` | Analyzes restarting and switching patterns after discontinuation. |
+| **Reporting** | `table...`, `plot...` | A suite of functions to create formatted tables and plots from analysis results. |
