@@ -27,3 +27,4 @@ mermaid:
 
 plugins:
   - jekyll-seo-tag
+  - jekyll-sitemap
