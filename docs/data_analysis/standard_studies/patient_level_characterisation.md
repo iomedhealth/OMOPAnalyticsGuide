@@ -59,4 +59,4 @@ The results are typically presented in a summary table, often referred to as "Ta
 
 ## How to Implement This Study
 
-*Code examples and step-by-step instructions will be added here.*
+{% include rmd_output/patient_level_characterisation.md %}
