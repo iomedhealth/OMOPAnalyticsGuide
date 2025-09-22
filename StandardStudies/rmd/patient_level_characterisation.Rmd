@@ -40,6 +40,7 @@ knitr::opts_chunk$set(fig.path = "../../assets/images/rmd_output/")
 ```{r load-libraries, message=FALSE, warning=FALSE}
 library(CDMConnector)
 library(CohortCharacteristics)
+library(PatientProfiles)
 library(visOmopResults)
 library(DrugUtilisation)
 ```
@@ -95,8 +96,33 @@ tableCharacteristics(chars)
 ```{r plot-age-distribution, message=FALSE, warning=FALSE}
 # Create a plot of the age distribution by cohort.
 # First, filter the characteristics data to select only the "Age" variable.
-library(dplyr)
 plot_data <- dplyr::filter(chars, variable_name == "Age")
 # Generate a boxplot of the age distribution, colored by cohort name.
 plotCharacteristics(plot_data, plotType = "boxplot", colour = "cohort_name")
+```
+
+## Step 5: Advanced Characterization with Flags
+
+The `summariseCharacteristics` function offers powerful features for creating custom variables. One such feature is `conceptIntersectFlag`, which allows you to generate binary flags indicating the presence of specific concepts for each individual in the cohort. This is particularly useful for assessing the prevalence of comorbidities, prior medications, or other specific clinical events. In this step, we'll create flags for a few example concepts to demonstrate how to enrich the baseline characteristics table.
+
+```{r summarize-characteristics-with-flags, message=FALSE, warning=FALSE}
+# Define a list of concepts to create flags for.
+# We'll use arbitrary concept IDs for this example,
+# representing conditions like 'headache' and 'fever'.
+cdm$cohort |> 
+  addSex() |>
+  summariseCharacteristics(
+    demographics = FALSE,
+    strata = list("sex"), 
+    conceptIntersectFlag = list(
+    "Concomitant disorders" = list(
+      conceptSet = list(headache = 378253, asthma = 317009, influenza = 4266367),
+      window = c(-Inf, Inf)
+    ))
+  ) |>
+  # Display the characteristics table, which now includes the new flags.
+  tableCharacteristics(
+    header = c("sex"),
+    hide = c("cdm_name", "cohort_name", "variable_level", "table_name")
+  )
 ```
