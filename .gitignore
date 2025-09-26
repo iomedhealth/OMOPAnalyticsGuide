@@ -20,3 +20,5 @@ vendor/
 R/renv/
 
 .Rproj.user
+StandardStudies/.RData
+StandardStudies/.Rhistory

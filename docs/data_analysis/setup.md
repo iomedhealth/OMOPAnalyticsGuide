@@ -2,7 +2,7 @@
 layout: default
 title: Setup
 parent: Data Analysis
-nav_order: 3
+nav_order: 2
 ---
 
 # Environment Setup Guide
@@ -60,20 +60,20 @@ For the tutorials, we will use Eunomia, a mock dataset that is synthetically gen
 1.  **Download the Eunomia Data:** In the RStudio console, run the following command. This will download the dataset into your project's root directory. The `::` syntax is R's way of specifying that the `downloadEunomiaData` function is from the `CDMConnector` package, and `here::here()` is a helper function that provides the path to your project's home directory.
     ```r
     CDMConnector::downloadEunomiaData(
-      pathToData = here::here(), 
+      pathToData = here::here(),
       overwrite = TRUE
     )
     ```
 2.  **Set an Environment Variable:** To ensure R can always find the mock data, we will store its location in a central configuration file called `.Renviron`. An **environment variable** is a standard way to store configuration settings outside of the analysis code itself.
-    
+
     Run this command in the R console to open the file for editing:
     ```r
     usethis::edit_r_environ()
     ```
 3.  **Add the File Path:** A new script window will open. In this window, add the following line, replacing `"full/path/to/your/project/Eunomia.zip"` with the actual, full path to the `Eunomia.zip` file that was downloaded in step 1.
-    
+
     > **Pro Tip:** An easy way to get the full file path is to find the `Eunomia.zip` file in the **Files pane** in RStudio (bottom-right), right-click on it, and select "Copy Path".
-    
+
     ```
     EUNOMIA_DATA_FOLDER = "full/path/to/your/project/Eunomia.zip"
     ```
@@ -99,8 +99,8 @@ If the script runs without any error messages in the console and you see a table
 
 ```
 # A tibble: 1 × 2
-  cohort_definition_id cohort_name      
-                 <int> <chr>            
+  cohort_definition_id cohort_name
+                 <int> <chr>
 1                    1 chronic_sinusitis
 ```
 
