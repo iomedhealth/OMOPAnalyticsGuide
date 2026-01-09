@@ -1,10 +1,10 @@
 ---
 
 layout: default
-title:  R Programming and OMOP
+title: Using OMOP with R
 parent: Data Analysis
-nav_order: 2
+nav_order: 4
 
 ---
 
-{% include rmd_output/tidy_r_programming_with_omop.md %}
+{% include rmd_output/omop_with_r.md %}

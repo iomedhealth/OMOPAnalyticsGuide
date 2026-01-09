@@ -63,7 +63,7 @@ standardized “language” for health data:
 This structure allows for powerful, scalable analyses across different
 healthcare systems.
 
-### For Data Scientists New to Healthcare (like Martina)
+### For Data Scientists New to Healthcare
 
 If you’re proficient in R but unfamiliar with clinical research, we’ll
 explain the “why” behind the code. For example, when we create a
@@ -165,7 +165,7 @@ iris_db |>
 ```
 
     ## # Source:   SQL [?? x 3]
-    ## # Database: DuckDB 1.4.0 [gabriel.maeztu@Darwin 25.0.0:R 4.5.1/:memory:]
+    ## # Database: DuckDB 1.4.0 [root@Darwin 25.1.0:R 4.5.2/:memory:]
     ##   Species        n mean_sepal_length
     ##   <fct>      <dbl>             <dbl>
     ## 1 setosa        50              5.01
@@ -256,7 +256,7 @@ measurements_db |>
 ```
 
     ## # Source:   SQL [?? x 2]
-    ## # Database: DuckDB 1.4.0 [gabriel.maeztu@Darwin 25.0.0:R 4.5.1/:memory:]
+    ## # Database: DuckDB 1.4.0 [root@Darwin 25.1.0:R 4.5.2/:memory:]
     ##    Species Sepal.Length
     ##    <fct>          <dbl>
     ##  1 setosa           5.1
@@ -279,12 +279,12 @@ measurements_db |>
 ```
 
     ## # Source:   SQL [?? x 1]
-    ## # Database: DuckDB 1.4.0 [gabriel.maeztu@Darwin 25.0.0:R 4.5.1/:memory:]
+    ## # Database: DuckDB 1.4.0 [root@Darwin 25.1.0:R 4.5.2/:memory:]
     ##   Species   
     ##   <fct>     
     ## 1 setosa    
-    ## 2 virginica 
-    ## 3 versicolor
+    ## 2 versicolor
+    ## 3 virginica
 
 ### Ordering Rows: `arrange()`
 
@@ -297,7 +297,7 @@ measurements_db |>
 ```
 
     ## # Source:     SQL [?? x 2]
-    ## # Database:   DuckDB 1.4.0 [gabriel.maeztu@Darwin 25.0.0:R 4.5.1/:memory:]
+    ## # Database:   DuckDB 1.4.0 [root@Darwin 25.1.0:R 4.5.2/:memory:]
     ## # Ordered by: desc(Sepal.Length)
     ##    Species   Sepal.Length
     ##    <fct>            <dbl>
@@ -327,7 +327,7 @@ measurements_db |>
 ```
 
     ## # Source:   SQL [?? x 3]
-    ## # Database: DuckDB 1.4.0 [gabriel.maeztu@Darwin 25.0.0:R 4.5.1/:memory:]
+    ## # Database: DuckDB 1.4.0 [root@Darwin 25.1.0:R 4.5.2/:memory:]
     ##    Species sepal_ratio is_large
     ##    <fct>         <dbl> <lgl>   
     ##  1 setosa         1.46 FALSE   
@@ -350,7 +350,7 @@ measurements_db |>
 ```
 
     ## # Source:   SQL [?? x 3]
-    ## # Database: DuckDB 1.4.0 [gabriel.maeztu@Darwin 25.0.0:R 4.5.1/:memory:]
+    ## # Database: DuckDB 1.4.0 [root@Darwin 25.1.0:R 4.5.2/:memory:]
     ##    Species Sepal.Length Petal.Length
     ##    <fct>          <dbl>        <dbl>
     ##  1 setosa           5.1          1.4
@@ -373,7 +373,7 @@ measurements_db |>
 ```
 
     ## # Source:   SQL [?? x 6]
-    ## # Database: DuckDB 1.4.0 [gabriel.maeztu@Darwin 25.0.0:R 4.5.1/:memory:]
+    ## # Database: DuckDB 1.4.0 [root@Darwin 25.1.0:R 4.5.2/:memory:]
     ##    sepal_length Sepal.Width Petal.Length Petal.Width Species species_id
     ##           <dbl>       <dbl>        <dbl>       <dbl> <fct>        <int>
     ##  1          5.1         3.5          1.4         0.2 setosa           1
@@ -402,7 +402,7 @@ measurements_db |>
 ```
 
     ## # Source:   SQL [?? x 3]
-    ## # Database: DuckDB 1.4.0 [gabriel.maeztu@Darwin 25.0.0:R 4.5.1/:memory:]
+    ## # Database: DuckDB 1.4.0 [root@Darwin 25.1.0:R 4.5.2/:memory:]
     ##   Species    avg_sepal count
     ##   <fct>          <dbl> <dbl>
     ## 1 setosa          5.01    50
@@ -417,7 +417,7 @@ measurements_db |>
 ```
 
     ## # Source:     SQL [?? x 2]
-    ## # Database:   DuckDB 1.4.0 [gabriel.maeztu@Darwin 25.0.0:R 4.5.1/:memory:]
+    ## # Database:   DuckDB 1.4.0 [root@Darwin 25.1.0:R 4.5.2/:memory:]
     ## # Ordered by: desc(n)
     ##   Species        n
     ##   <fct>      <dbl>
@@ -437,7 +437,7 @@ measurements_db |>
 ```
 
     ## # Source:   SQL [?? x 2]
-    ## # Database: DuckDB 1.4.0 [gabriel.maeztu@Darwin 25.0.0:R 4.5.1/:memory:]
+    ## # Database: DuckDB 1.4.0 [root@Darwin 25.1.0:R 4.5.2/:memory:]
     ##    Species Sepal.Length
     ##    <fct>          <dbl>
     ##  1 setosa           5.1
@@ -503,7 +503,7 @@ measurements_db |> filter(Sepal.Length > 5 & Petal.Length > 3)
 ```
 
     ## # Source:   SQL [?? x 6]
-    ## # Database: DuckDB 1.4.0 [gabriel.maeztu@Darwin 25.0.0:R 4.5.1/:memory:]
+    ## # Database: DuckDB 1.4.0 [root@Darwin 25.1.0:R 4.5.2/:memory:]
     ##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species    species_id
     ##           <dbl>       <dbl>        <dbl>       <dbl> <fct>           <int>
     ##  1          7           3.2          4.7         1.4 versicolor          2
@@ -538,7 +538,7 @@ measurements_db |>
 ```
 
     ## # Source:   SQL [?? x 7]
-    ## # Database: DuckDB 1.4.0 [gabriel.maeztu@Darwin 25.0.0:R 4.5.1/:memory:]
+    ## # Database: DuckDB 1.4.0 [root@Darwin 25.1.0:R 4.5.2/:memory:]
     ##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species species_id
     ##           <dbl>       <dbl>        <dbl>       <dbl> <fct>        <int>
     ##  1          5.1         3.5          1.4         0.2 setosa           1
@@ -578,7 +578,7 @@ species_db |>
 ```
 
     ## # Source:   SQL [?? x 5]
-    ## # Database: DuckDB 1.4.0 [gabriel.maeztu@Darwin 25.0.0:R 4.5.1/:memory:]
+    ## # Database: DuckDB 1.4.0 [root@Darwin 25.1.0:R 4.5.2/:memory:]
     ##   Species    species_id species_upper species_length species_substr
     ##   <fct>           <int> <chr>                  <dbl> <chr>         
     ## 1 setosa              1 SETOSA                     6 set           

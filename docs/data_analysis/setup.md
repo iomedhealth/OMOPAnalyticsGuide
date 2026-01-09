@@ -2,7 +2,7 @@
 layout: default
 title: Setup
 parent: Data Analysis
-nav_order: 2
+nav_order: 3
 ---
 
 # Environment Setup Guide
